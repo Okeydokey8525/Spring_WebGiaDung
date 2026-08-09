@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
@@ -37,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest
+@Transactional
 class ProductIntegrationTests {
 
     @Autowired
@@ -58,6 +60,12 @@ class ProductIntegrationTests {
     @Autowired
     private BrandRepository brandRepository;
 
+    @Autowired
+    private vn.homestore.api.catalog.productattribute.infrastructure.ProductAttributeRepository productAttributeRepository;
+
+    @Autowired
+    private vn.homestore.api.catalog.productattribute.infrastructure.ProductAttributeValueRepository productAttributeValueRepository;
+
     private Category testCategory;
     private Brand testBrand;
 
@@ -69,23 +77,12 @@ class ProductIntegrationTests {
             .apply(springSecurity())
             .build();
 
-        productRepository.deleteAll();
-        categoryRepository.deleteAll();
-        brandRepository.deleteAll();
-
-        Category category = new Category("Electronics", "electronics");
+        Category category = new Category("Electronics Prod", "electronics-prod");
         category.setSortOrder(0);
         category.setActive(true);
         testCategory = categoryRepository.saveAndFlush(category);
 
-        testBrand = brandRepository.saveAndFlush(new Brand("Sony", "sony"));
-    }
-
-    @AfterEach
-    void tearDown() {
-        productRepository.deleteAll();
-        categoryRepository.deleteAll();
-        brandRepository.deleteAll();
+        testBrand = brandRepository.saveAndFlush(new Brand("Sony Prod", "sony-prod"));
     }
 
     @Test

@@ -94,6 +94,9 @@ public class AttributeService {
             if (ConstraintViolationDetector.isConstraintViolated(e, "FK_attribute_values_attribute")) {
                 throw new ResourceConflictException("Attribute cannot be deleted while it has values.");
             }
+            if (ConstraintViolationDetector.isConstraintViolated(e, "FK_product_attributes_attribute")) {
+                throw new ResourceConflictException("Attribute cannot be deleted while it is assigned to products.");
+            }
             throw e;
         }
     }
@@ -171,8 +174,15 @@ public class AttributeService {
         AttributeValue value = attributeValueRepository.findByIdAndAttributeId(valueId, attributeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Attribute value not found: " + valueId + " in attribute: " + attributeId));
 
-        attributeValueRepository.delete(value);
-        attributeValueRepository.flush();
+        try {
+            attributeValueRepository.delete(value);
+            attributeValueRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            if (ConstraintViolationDetector.isConstraintViolated(e, "FK_product_attribute_values_attribute_value")) {
+                throw new ResourceConflictException("Attribute value cannot be deleted while it is assigned to products.");
+            }
+            throw e;
+        }
     }
 
     @Transactional(readOnly = true)
