@@ -1,0 +1,17 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Frontend - future
+node_modules/
+.next/
+dist/
+
+# IDE / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
