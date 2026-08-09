@@ -1,4 +1,4 @@
-package vn.homestore.homestore_api;
+package vn.homestore.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
