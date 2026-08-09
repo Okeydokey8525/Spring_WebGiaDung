@@ -111,7 +111,15 @@ public class BrandService {
         if (!brandRepository.existsById(id)) {
             throw new ResourceNotFoundException("Brand not found");
         }
-        brandRepository.deleteById(id);
+        try {
+            brandRepository.deleteById(id);
+            brandRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            if (ConstraintViolationDetector.isConstraintViolated(e, "FK_products_brand")) {
+                throw new ResourceConflictException("Brand cannot be deleted while it is used by products.");
+            }
+            throw e;
+        }
     }
 
     @Transactional(readOnly = true)

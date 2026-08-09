@@ -20,7 +20,8 @@ The application service prevents hierarchy cycles to avoid infinite loops:
 
 ## 5. Delete Behavior
 A parent category that has children cannot be deleted. Attempting to do so results in a 409 Conflict.
-Leaf categories can be deleted freely.
+Additionally, any category referenced by a Product (including archived products) cannot be physically deleted. This will also result in a 409 Conflict.
+Leaf categories that are not referenced by any product can be deleted freely.
 
 ## 6. Active Behavior & Public Tree Visibility
 The `is_active` flag determines storefront visibility.

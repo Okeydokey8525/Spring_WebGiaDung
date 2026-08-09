@@ -114,7 +114,15 @@ public class CategoryService {
         if (categoryRepository.existsByParentId(id)) {
             throw new ResourceConflictException("Category cannot be deleted while it has child categories");
         }
-        categoryRepository.deleteById(id);
+        try {
+            categoryRepository.deleteById(id);
+            categoryRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            if (ConstraintViolationDetector.isConstraintViolated(e, "FK_products_category")) {
+                throw new ResourceConflictException("Category cannot be deleted while it is used by products.");
+            }
+            throw e;
+        }
     }
 
     @Transactional(readOnly = true)

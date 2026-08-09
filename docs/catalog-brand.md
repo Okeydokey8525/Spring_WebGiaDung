@@ -22,4 +22,4 @@ The Brand module represents product manufacturers or consumer brands (e.g., "App
 - `GET /api/v1/admin/brands/{id}`: Returns a single brand by its internal ID.
 - `POST /api/v1/admin/brands`: Creates a new brand.
 - `PUT /api/v1/admin/brands/{id}`: Updates an existing brand. Follows strict PUT semantics where nullable fields omitted from the payload are explicitly cleared.
-- `DELETE /api/v1/admin/brands/{id}`: Deletes a brand. (Note: Foreign Key constraints will later prevent deleting brands referenced by Products).
+- `DELETE /api/v1/admin/brands/{id}`: Deletes a brand. (Note: Foreign Key constraints prevent deleting brands referenced by any Products, including archived ones. Attempting to do so results in a 409 Conflict).
