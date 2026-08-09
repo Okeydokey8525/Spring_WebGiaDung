@@ -12,6 +12,7 @@ import vn.homestore.api.catalog.category.domain.Category;
 import vn.homestore.api.catalog.category.infrastructure.CategoryRepository;
 import vn.homestore.api.common.error.ResourceConflictException;
 import vn.homestore.api.common.error.ResourceNotFoundException;
+import vn.homestore.api.common.persistence.ConstraintViolationDetector;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,7 +56,7 @@ public class CategoryService {
             category = categoryRepository.saveAndFlush(category);
             return mapToResponse(category);
         } catch (DataIntegrityViolationException e) {
-            if (e.getMessage() != null && e.getMessage().contains("UX_categories_slug")) {
+            if (ConstraintViolationDetector.isConstraintViolated(e, "UX_categories_slug")) {
                 throw new ResourceConflictException("Duplicate category slug");
             }
             throw e;
@@ -99,7 +100,7 @@ public class CategoryService {
             category = categoryRepository.saveAndFlush(category);
             return mapToResponse(category);
         } catch (DataIntegrityViolationException e) {
-            if (e.getMessage() != null && e.getMessage().contains("UX_categories_slug")) {
+            if (ConstraintViolationDetector.isConstraintViolated(e, "UX_categories_slug")) {
                 throw new ResourceConflictException("Duplicate category slug");
             }
             throw e;

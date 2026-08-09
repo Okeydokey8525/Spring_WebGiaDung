@@ -1,11 +1,11 @@
-package vn.homestore.api.catalog.category.application;
+package vn.homestore.api.catalog.brand.application;
 
 import org.springframework.stereotype.Service;
 import vn.homestore.api.common.error.InvalidRequestException;
 import vn.homestore.api.common.text.SlugNormalizer;
 
 @Service
-public class CategorySlugService {
+public class BrandSlugService {
 
     public String generateSlug(String source) {
         if (source == null || source.isBlank()) {
