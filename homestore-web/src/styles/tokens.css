@@ -1,0 +1,58 @@
+@theme {
+  /* Colors */
+  --color-canvas: #f7f6f2;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #eff0eb;
+
+  --color-primary: #171a17;
+  --color-muted: #61665f;
+
+  --color-border: #d8dad3;
+  --color-border-strong: #8f948d;
+
+  --color-brand: #23533c;
+  --color-brand-hover: #1b422f;
+  --color-brand-soft: #e5efe8;
+
+  --color-success: #237a4a;
+  --color-warning: #995c0d;
+  --color-danger: #b33434;
+
+  --color-focus-ring: #23533c;
+
+  /* Typography Hierarchy */
+  --font-editorial: Georgia, Cambria, 'Times New Roman', Times, serif;
+
+  /* Semantic spacing / Layout */
+  --spacing-gutter-mobile: 16px;
+  --spacing-gutter-tablet: 24px;
+  --spacing-gutter-desktop: 32px;
+  --spacing-content-max: 1440px;
+
+  --spacing-section-sm: 32px;
+  --spacing-section-md: 64px;
+  --spacing-section-lg: 96px;
+
+  /* Radius */
+  --radius-control: 10px;
+  --radius-surface: 16px;
+  --radius-surface-large: 20px;
+  --radius-pill: 9999px;
+
+  /* Shadow */
+  --shadow-subtle: 0 4px 20px rgba(23, 26, 23, 0.05);
+  --shadow-elevated: 0 12px 32px rgba(23, 26, 23, 0.1);
+
+  /* Motion */
+  --default-transition-duration: 250ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-primary);
+  }
+}

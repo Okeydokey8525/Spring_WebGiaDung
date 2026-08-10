@@ -40,7 +40,7 @@ The frontend application is entirely decoupled from the backend REST API (`homes
 The scope of `HOME-FE-0` is strictly limited to setting up the generic scaffolding, build tools, formatting, linter, and runtime configurations. No business logic, commerce UI, mock data, or visual components have been implemented. Docker and SQL Server are NOT required to run this foundational setup.
 
 ## 10. Future Milestones
-- **HOME-FE-1:** Design System
+- **HOME-FE-1:** [Design System](frontend-design-system.md) (Completed)
 - **HOME-FE-2:** Global Layout
 - **HOME-FE-3:** Homepage
 - **HOME-FE-4:** Catalog
