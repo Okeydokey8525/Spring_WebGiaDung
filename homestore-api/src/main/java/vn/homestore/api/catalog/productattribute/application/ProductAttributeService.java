@@ -3,12 +3,10 @@ package vn.homestore.api.catalog.productattribute.application;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.homestore.api.catalog.attribute.infrastructure.AttributeRepository;
-import vn.homestore.api.catalog.attribute.infrastructure.AttributeValueRepository;
+import vn.homestore.api.catalog.attribute.application.AttributeService;
 import vn.homestore.api.catalog.attribute.domain.AttributeValue;
+import vn.homestore.api.catalog.product.application.ProductService;
 import vn.homestore.api.catalog.product.domain.Product;
-import vn.homestore.api.catalog.product.domain.ProductStatus;
-import vn.homestore.api.catalog.product.infrastructure.ProductRepository;
 import vn.homestore.api.catalog.productattribute.api.*;
 import vn.homestore.api.catalog.productattribute.domain.ProductAttribute;
 import vn.homestore.api.catalog.productattribute.domain.ProductAttributeValue;
@@ -28,36 +26,24 @@ public class ProductAttributeService {
 
     private final ProductAttributeRepository productAttributeRepository;
     private final ProductAttributeValueRepository productAttributeValueRepository;
-    private final ProductRepository productRepository;
-    private final AttributeRepository attributeRepository;
-    private final AttributeValueRepository attributeValueRepository;
+    private final ProductService productService;
+    private final AttributeService attributeService;
 
     public ProductAttributeService(
             ProductAttributeRepository productAttributeRepository,
             ProductAttributeValueRepository productAttributeValueRepository,
-            ProductRepository productRepository,
-            AttributeRepository attributeRepository,
-            AttributeValueRepository attributeValueRepository) {
+            ProductService productService,
+            AttributeService attributeService) {
         this.productAttributeRepository = productAttributeRepository;
         this.productAttributeValueRepository = productAttributeValueRepository;
-        this.productRepository = productRepository;
-        this.attributeRepository = attributeRepository;
-        this.attributeValueRepository = attributeValueRepository;
-    }
-
-    private Product getActiveProduct(Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-        if (product.getStatus() == ProductStatus.ARCHIVED) {
-            throw new ResourceConflictException("Archived products cannot have attribute assignments modified.");
-        }
-        return product;
+        this.productService = productService;
+        this.attributeService = attributeService;
     }
 
     public ProductAttributeResponse assignAttribute(Long productId, CreateProductAttributeRequest request) {
-        getActiveProduct(productId);
+        productService.getActiveProductOrThrow(productId);
         
-        if (!attributeRepository.existsById(request.getAttributeId())) {
+        if (!attributeService.existsById(request.getAttributeId())) {
             throw new ResourceNotFoundException("Attribute not found");
         }
 
@@ -68,6 +54,12 @@ public class ProductAttributeService {
             if (ConstraintViolationDetector.isConstraintViolated(ex, "UX_product_attributes_product_attribute")) {
                 throw new ResourceConflictException("Product already has this attribute assigned.");
             }
+            if (ConstraintViolationDetector.isConstraintViolated(ex, "FK_product_attributes_product")) {
+                throw new ResourceConflictException("Product does not exist.");
+            }
+            if (ConstraintViolationDetector.isConstraintViolated(ex, "FK_product_attributes_attribute")) {
+                throw new ResourceConflictException("Attribute does not exist.");
+            }
             throw ex;
         }
 
@@ -75,7 +67,7 @@ public class ProductAttributeService {
     }
 
     public List<ProductAttributeResponse> getAttributesByProduct(Long productId) {
-        if (!productRepository.existsById(productId)) {
+        if (!productService.existsById(productId)) {
             throw new ResourceNotFoundException("Product not found");
         }
         return productAttributeRepository.findAllByProductIdOrderBySortOrderAscAttributeIdAsc(productId)
@@ -89,16 +81,17 @@ public class ProductAttributeService {
     }
 
     public ProductAttributeResponse updateAttributeAssignment(Long productId, Long assignmentId, UpdateProductAttributeRequest request) {
-        getActiveProduct(productId);
+        productService.getActiveProductOrThrow(productId);
         ProductAttribute pa = productAttributeRepository.findByIdAndProductId(assignmentId, productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product attribute assignment not found"));
         
         pa.setSortOrder(request.getSortOrder());
+        pa = productAttributeRepository.saveAndFlush(pa);
         return toResponse(pa);
     }
 
     public void deleteAttributeAssignment(Long productId, Long assignmentId) {
-        getActiveProduct(productId);
+        productService.getActiveProductOrThrow(productId);
         ProductAttribute pa = productAttributeRepository.findByIdAndProductId(assignmentId, productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product attribute assignment not found"));
 
@@ -118,12 +111,11 @@ public class ProductAttributeService {
     }
 
     public ProductAttributeValueResponse assignValue(Long productId, Long assignmentId, CreateProductAttributeValueRequest request) {
-        getActiveProduct(productId);
+        productService.getActiveProductOrThrow(productId);
         ProductAttribute pa = productAttributeRepository.findByIdAndProductId(assignmentId, productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product attribute assignment not found"));
         
-        AttributeValue av = attributeValueRepository.findById(request.getAttributeValueId())
-                .orElseThrow(() -> new ResourceNotFoundException("Attribute value not found"));
+        AttributeValue av = attributeService.getAttributeValueOrThrow(request.getAttributeValueId());
         
         if (!av.getAttributeId().equals(pa.getAttributeId())) {
             throw new InvalidRequestException("Attribute value does not belong to the assigned attribute.");
@@ -136,13 +128,19 @@ public class ProductAttributeService {
             if (ConstraintViolationDetector.isConstraintViolated(ex, "UX_product_attribute_values_assignment_value")) {
                 throw new ResourceConflictException("Product attribute already has this value assigned.");
             }
+            if (ConstraintViolationDetector.isConstraintViolated(ex, "FK_product_attribute_values_product_attribute")) {
+                throw new ResourceConflictException("Product attribute assignment does not exist.");
+            }
+            if (ConstraintViolationDetector.isConstraintViolated(ex, "FK_product_attribute_values_attribute_value")) {
+                throw new ResourceConflictException("Attribute value does not exist.");
+            }
             throw ex;
         }
         return toValueResponse(pav);
     }
 
     public List<ProductAttributeValueResponse> getValuesByAssignment(Long productId, Long assignmentId) {
-        if (!productRepository.existsById(productId)) {
+        if (!productService.existsById(productId)) {
             throw new ResourceNotFoundException("Product not found");
         }
         if (!productAttributeRepository.existsByIdAndProductId(assignmentId, productId)) {
@@ -162,18 +160,19 @@ public class ProductAttributeService {
     }
 
     public ProductAttributeValueResponse updateValueAssignment(Long productId, Long assignmentId, Long valueAssignmentId, UpdateProductAttributeValueRequest request) {
-        getActiveProduct(productId);
+        productService.getActiveProductOrThrow(productId);
         if (!productAttributeRepository.existsByIdAndProductId(assignmentId, productId)) {
             throw new ResourceNotFoundException("Product attribute assignment not found");
         }
         ProductAttributeValue pav = productAttributeValueRepository.findByIdAndProductAttributeId(valueAssignmentId, assignmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product attribute value assignment not found"));
         pav.setSortOrder(request.getSortOrder());
+        pav = productAttributeValueRepository.saveAndFlush(pav);
         return toValueResponse(pav);
     }
 
     public void deleteValueAssignment(Long productId, Long assignmentId, Long valueAssignmentId) {
-        getActiveProduct(productId);
+        productService.getActiveProductOrThrow(productId);
         if (!productAttributeRepository.existsByIdAndProductId(assignmentId, productId)) {
             throw new ResourceNotFoundException("Product attribute assignment not found");
         }

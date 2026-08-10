@@ -109,7 +109,11 @@ public class AttributeService {
     @Transactional(readOnly = true)
     public Attribute getAttributeOrThrow(Long id) {
         return attributeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Attribute not found: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Attribute not found"));
+    }
+
+    public boolean existsById(Long id) {
+        return attributeRepository.existsById(id);
     }
 
     public AttributeValue createAttributeValue(Long attributeId, CreateAttributeValueRequest request) {
@@ -195,11 +199,13 @@ public class AttributeService {
 
     @Transactional(readOnly = true)
     public AttributeValue getValueOrThrow(Long attributeId, Long valueId) {
-        if (!attributeRepository.existsById(attributeId)) {
-            throw new ResourceNotFoundException("Attribute not found: " + attributeId);
-        }
         return attributeValueRepository.findByIdAndAttributeId(valueId, attributeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Attribute value not found: " + valueId + " in attribute: " + attributeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Attribute value not found"));
+    }
+
+    public AttributeValue getAttributeValueOrThrow(Long valueId) {
+        return attributeValueRepository.findById(valueId)
+                .orElseThrow(() -> new ResourceNotFoundException("Attribute value not found"));
     }
 
     private Attribute saveAttribute(Attribute attribute) {

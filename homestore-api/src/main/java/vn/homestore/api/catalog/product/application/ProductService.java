@@ -142,6 +142,20 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
+    public Product getActiveProductOrThrow(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        if (product.getStatus() == ProductStatus.ARCHIVED) {
+            throw new ResourceConflictException("Archived products cannot have attribute assignments modified.");
+        }
+        return product;
+    }
+
+    public boolean existsById(Long id) {
+        return productRepository.existsById(id);
+    }
+
+    @Transactional(readOnly = true)
     public List<ProductResponse> listProducts() {
         return productRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
                 .stream()
