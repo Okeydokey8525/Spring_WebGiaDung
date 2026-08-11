@@ -51,4 +51,4 @@ The following are explicitly deferred to future milestones:
 - Backend/API integrations.
 
 ## 9. Next Milestone
-- **HOME-FE-3**: Homepage
+- **HOME-FE-3**: Homepage - *Completed. See [Homepage](frontend-homepage.md).*
