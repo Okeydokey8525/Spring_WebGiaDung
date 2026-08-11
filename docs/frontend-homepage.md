@@ -57,4 +57,4 @@ All content displayed is strictly presentational. It is defined in `src/lib/conf
 - **Future Photography**: These SVG blocks are structured as containers with aspect ratios. When photography is ready, it is a simple drop-in replacement via `next/image` within these containers.
 
 ## 12. Intentional Absence of Product Data
-This homepage contains NO product data. There are no grids of products, prices, ratings, or SKUs. The catalog display is explicitly deferred to **HOME-FE-4**. This prevents scope creep and ensures domain boundaries remain clean.
+This homepage contains NO product data. There are no grids of products, prices, ratings, or SKUs. The catalog display is explicitly deferred to **HOME-FE-4** (now implemented at `/products`). This prevents scope creep and ensures domain boundaries remain clean.
