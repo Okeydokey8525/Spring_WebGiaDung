@@ -39,7 +39,7 @@ Invalid query parameters safely fall back to default values (`all` or `featured`
 The `ProductCard` component focuses on clear presentation:
 - Uses a local, abstract SVG placeholder (`ProductMediaPlaceholder`) instead of random external images.
 - Displays metadata (category/room) and a concise description.
-- Clicks route to `/products/{slug}`. Note that Product Detail Pages (PDP) are deferred to HOME-FE-5 and will currently return a 404.
+- Clicks route to `/products/{slug}`. Product Detail Pages (PDP) are implemented in HOME-FE-5.
 
 ## 8. Missing Commerce Features Explained
 - **Price/Sale/Discount**: Absent because the pricing contract and promotional rules engine are not finalized.

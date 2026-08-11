@@ -10,6 +10,10 @@ export function getCatalogItems(): readonly CatalogItem[] {
   return catalogFixtures;
 }
 
+export function getCatalogItemBySlug(slug: string): CatalogItem | undefined {
+  return catalogFixtures.find((item) => item.slug === slug);
+}
+
 export function getFilteredCatalogItems(
   room?: CatalogRoomKey,
   category?: CatalogCategoryKey,
