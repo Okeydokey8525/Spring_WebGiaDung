@@ -4,29 +4,28 @@ import { homeValues } from '@/lib/config/home-content';
 
 export function HomeValues() {
   return (
-    <Section className="py-16 lg:py-24 bg-[var(--color-surface)]">
+    <Section className="bg-[var(--color-surface)] py-16 lg:py-24">
       <Container>
         <div className="flex flex-col space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
+          <div className="mx-auto max-w-2xl space-y-4 text-center">
             <h2 className="font-editorial text-3xl tracking-tight text-[var(--color-brand)]">
-              Nguyên tắc thiết kế
+              Điều HomeStore ưu tiên
             </h2>
-            <p className="text-[var(--color-muted)] text-base">
-              Cách chúng tôi tiếp cận mỗi đồ vật để mang lại trải nghiệm sống
-              trọn vẹn hơn.
+            <p className="text-base text-[var(--color-muted)]">
+              Một cách khám phá đồ dùng hằng ngày rõ ràng, vừa đủ và dễ tiếp
+              cận.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {homeValues.map((value) => (
               <Surface
                 key={value.id}
-                className="p-8 flex flex-col items-center text-center space-y-4 rounded-[var(--radius-container)] bg-[var(--color-canvas)] border border-[var(--color-border)]"
+                className="flex flex-col items-center space-y-4 rounded-[var(--radius-container)] border border-[var(--color-border)] bg-[var(--color-canvas)] p-8 text-center"
               >
-                {/* Minimalist icon block */}
-                <div className="w-12 h-12 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] flex items-center justify-center mb-2">
+                <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]">
                   <svg
-                    className="w-5 h-5 text-[var(--color-brand)]"
+                    className="h-5 w-5 text-[var(--color-brand)]"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -40,11 +39,10 @@ export function HomeValues() {
                     />
                   </svg>
                 </div>
-
-                <h3 className="font-medium text-lg text-[var(--color-primary)]">
+                <h3 className="text-lg font-medium text-[var(--color-primary)]">
                   {value.title}
                 </h3>
-                <p className="text-sm text-[var(--color-muted)] leading-relaxed">
+                <p className="text-sm leading-relaxed text-[var(--color-muted)]">
                   {value.description}
                 </p>
               </Surface>

@@ -1,7 +1,6 @@
-import { CatalogItem } from '../model/catalog-item';
+import type { CatalogItem } from '../model/catalog-item';
 import { catalogFixtures } from './catalog-fixtures';
-import {
-  CatalogRoomKey,
+import type {
   CatalogCategoryKey,
   CatalogSortKey,
 } from '../model/catalog-query';
@@ -15,17 +14,10 @@ export function getCatalogItemBySlug(slug: string): CatalogItem | undefined {
 }
 
 export function getFilteredCatalogItems(
-  room?: CatalogRoomKey,
   category?: CatalogCategoryKey,
   sort?: CatalogSortKey
 ): readonly CatalogItem[] {
   let items = [...catalogFixtures];
-
-  if (room && room !== 'all') {
-    items = items.filter(
-      (item) => item.roomKey === room || item.roomKey === 'all'
-    );
-  }
 
   if (category && category !== 'all') {
     items = items.filter((item) => item.categoryKey === category);

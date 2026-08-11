@@ -1,60 +1,55 @@
-# HomeStore Frontend Homepage (HOME-FE-3)
+# HomeStore Frontend Homepage (HOME-FE-3, repositioned by HOME-FE-6)
 
 ## 1. Homepage Purpose
-The homepage is designed for editorial discovery, not catalog listing. It communicates what HomeStore is, its design principles, and how visitors can discover products by space or lifestyle collection. It is the entry point that sets the premium editorial tone.
+
+The homepage introduces HomeStore as a broad single-store destination for
+household goods and daily utilities. HOME-FE-6 supersedes the room-first
+presentation taxonomy introduced in HOME-FE-3 while preserving the original
+component architecture, restrained design system, and accessibility baseline.
 
 ## 2. Information Architecture
-The current structure consists of exactly 6 main sections:
-1. **Hero**: Main headline, mission statement, and primary CTAs.
-2. **Room Discovery**: Navigational entry points grouped by living spaces (Living Room, Bedroom, Kitchen, Bathroom).
-3. **Editorial Feature**: Alternating layout featuring curated collections or lifestyle principles.
-4. **Design Principles**: HomeStore's core approach to products (Easy living, Intentional minimalism, Daily rhythm).
-5. **Inspiration**: A call to action leading to storytelling content.
-6. **Closing CTA**: Final prompt to browse products or spaces.
+
+The homepage contains six meaningful sections:
+
+1. **Hero**: Broad daily-goods positioning with catalog and category CTAs.
+2. **Category Discovery**: Six category-first entry points into `/products`.
+3. **Everyday-Use Discovery**: A practical need-based entry point.
+4. **Editorial Feature**: Two static, practical discovery themes linked to catalog filters.
+5. **HomeStore Values**: Practicality, clear discovery, and breadth of use cases.
+6. **Closing CTA**: A final prompt to browse all products or a useful category.
 
 ## 3. Hero
-- **Headline**: "Không gian sống, được chọn lựa có chủ đích."
-- Uses an asymmetrical layout with a large abstract decorative SVG placeholder that will later be replaced by high-quality brand photography.
-- CTAs lead to `/products` and `/rooms`.
 
-## 4. Room Discovery
-- Displays 4 generic spaces using restrained cards.
-- Does not contain fake product data or counts.
-- Uses subtle hover transitions and abstract SVG placeholders.
+The headline is “Đồ dùng thiết thực cho cuộc sống mỗi ngày.” Supporting copy
+describes household goods and daily utilities without exaggerated commerce
+claims. CTAs lead to `/products` and the catalog category filter section.
 
-## 5. Editorial Feature
-- Displays 2 featured themes in a large alternating layout.
-- Provides deep links to `/collections/minimalism` and `/collections/dining`.
-- Abstract geometry placeholders maintain the layout structure without violating the "no external network image" policy.
+## 4. Category and Need Discovery
 
-## 6. Value/Design Principles
-- A 3-column layout highlighting HomeStore's approach.
-- Free of unverifiable marketing claims (e.g., no "highest quality" or "cheapest").
+`CategoryDiscovery` reads from the shared presentation taxonomy in
+`src/lib/config/store-categories.ts`. It displays six cards in a responsive
+one-, two-, or three-column grid without a horizontal carousel. Each card links
+to `/products?category=<key>`.
 
-## 7. Inspiration & Closing CTA
-- The inspiration block directs users to `/stories`.
-- The closing CTA acts as a soft transition to the footer, asking "Bạn đang tìm điều gì cho không gian của mình?".
+`EverydayUseDiscovery` provides a secondary path based on a common task rather
+than a room. It is static presentation, not an article or recommendation engine.
 
-## 8. Responsive Behavior
-- **Mobile**: Single column layouts, stacked elements, full-width CTAs.
-- **Tablet**: Balanced 2-column or 3-column layouts where appropriate.
-- **Desktop**: Expansive layouts (up to 4 columns for rooms, asymmetrical grids for hero and editorial features).
-- No horizontal scrolling or overflow.
+## 5. Practical Editorial and Values
 
-## 9. Accessibility
-- Includes one single `<h1>` for the page.
-- Section headings use `<h2>` and `<h3>` logically.
-- All decorative SVGs include `aria-hidden="true"`.
-- Buttons/links are native, accessible elements with focus states (`focus-visible:ring`).
-- The page does not introduce a duplicate `<main>` landmark.
+Editorial features link to real catalog filter states rather than unimplemented
+collection or story routes. Values describe the intended discovery experience
+without quality, price, certification, or material guarantees.
 
-## 10. Static Presentational Content Policy
-All content displayed is strictly presentational. It is defined in `src/lib/config/home-content.ts` using types like `RoomDiscoveryItem` and `EditorialFeature`. This ensures presentational data is not confused with domain/catalog data.
+## 6. Responsive and Accessible Behavior
 
-## 11. Media Placeholder Strategy
-- Abstract SVG geometry is used with `currentColor` and opacity utilities.
-- It provides visual weight and structure without fetching external images or pretending to be product photos.
-- **Future Photography**: These SVG blocks are structured as containers with aspect ratios. When photography is ready, it is a simple drop-in replacement via `next/image` within these containers.
+- Mobile layouts stack content and use full-width controls where appropriate.
+- Category cards reflow at tablet and desktop breakpoints without horizontal scrolling.
+- The page contains one `<h1>` and follows a logical heading hierarchy.
+- Decorative SVGs are hidden from assistive technology.
+- Native links retain visible keyboard focus states.
 
-## 12. Intentional Absence of Product Data
-This homepage contains NO product data. There are no grids of products, prices, ratings, or SKUs. The catalog display is explicitly deferred to **HOME-FE-4** (now implemented at `/products`). This prevents scope creep and ensures domain boundaries remain clean.
+## 7. Static Content Boundary
+
+Homepage content and taxonomy are presentational. The homepage contains no
+prices, ratings, inventory, seller data, API requests, or production product
+media.

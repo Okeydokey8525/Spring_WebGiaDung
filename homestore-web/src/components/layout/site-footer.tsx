@@ -7,25 +7,23 @@ export function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[var(--color-surface)] border-t border-[var(--color-border)] py-12 lg:py-16">
+    <footer className="border-t border-[var(--color-border)] bg-[var(--color-surface)] py-12 lg:py-16">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand Column */}
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <Link
               href="/"
-              className="font-editorial text-2xl font-bold text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] inline-block px-1 -mx-1"
+              className="-mx-1 inline-block rounded-[var(--radius-control)] px-1 font-editorial text-2xl font-bold text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
             >
               HomeStore
             </Link>
-            <p className="text-[var(--color-muted)] text-sm max-w-xs">
-              Không gian sống gọn gàng, tiện nghi và có chủ đích.
+            <p className="max-w-xs text-sm text-[var(--color-muted)]">
+              Đồ dùng và tiện ích cho những nhu cầu thường ngày.
             </p>
           </div>
 
-          {/* Navigation Columns */}
           <div>
-            <h2 className="font-semibold text-[var(--color-primary)] mb-4">
+            <h2 className="mb-4 font-semibold text-[var(--color-primary)]">
               Mua sắm
             </h2>
             <nav
@@ -36,7 +34,7 @@ export function SiteFooter() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] w-fit"
+                  className="w-fit rounded-[var(--radius-control)] text-sm text-[var(--color-muted)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
                 >
                   {item.label}
                 </Link>
@@ -45,7 +43,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="font-semibold text-[var(--color-primary)] mb-4">
+            <h2 className="mb-4 font-semibold text-[var(--color-primary)]">
               Hỗ trợ
             </h2>
             <nav
@@ -56,7 +54,7 @@ export function SiteFooter() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] w-fit"
+                  className="w-fit rounded-[var(--radius-control)] text-sm text-[var(--color-muted)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
                 >
                   {item.label}
                 </Link>
@@ -65,7 +63,7 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <h2 className="font-semibold text-[var(--color-primary)] mb-4">
+            <h2 className="mb-4 font-semibold text-[var(--color-primary)]">
               HomeStore
             </h2>
             <nav
@@ -76,7 +74,7 @@ export function SiteFooter() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-[var(--color-muted)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] w-fit"
+                  className="w-fit rounded-[var(--radius-control)] text-sm text-[var(--color-muted)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
                 >
                   {item.label}
                 </Link>
@@ -85,8 +83,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Legal/Copyright */}
-        <div className="mt-12 pt-8 border-t border-[var(--color-border)] flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[var(--color-border)] pt-8 md:flex-row">
           <p className="text-xs text-[var(--color-muted)]">
             &copy; {currentYear} HomeStore
           </p>

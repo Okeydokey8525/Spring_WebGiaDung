@@ -4,10 +4,9 @@ export type NavItem = {
 };
 
 export const primaryNavigation: NavItem[] = [
+  { label: 'Danh mục', href: '/products#catalog-categories' },
   { label: 'Sản phẩm', href: '/products' },
-  { label: 'Không gian sống', href: '/rooms' },
-  { label: 'Bộ sưu tập', href: '/collections' },
-  { label: 'Cảm hứng', href: '/stories' },
+  { label: 'Nổi bật', href: '/products?sort=featured' },
   { label: 'Về HomeStore', href: '/about' },
 ];
 
@@ -19,9 +18,9 @@ export const utilityNavigation: NavItem[] = [
 
 export const footerNavigation = {
   shop: [
+    { label: 'Danh mục', href: '/products#catalog-categories' },
     { label: 'Sản phẩm', href: '/products' },
-    { label: 'Không gian sống', href: '/rooms' },
-    { label: 'Bộ sưu tập', href: '/collections' },
+    { label: 'Nổi bật', href: '/products?sort=featured' },
   ],
   support: [
     { label: 'Tìm kiếm', href: '/search' },
@@ -29,7 +28,7 @@ export const footerNavigation = {
     { label: 'Giỏ hàng', href: '/cart' },
   ],
   brand: [
-    { label: 'Cảm hứng', href: '/stories' },
+    { label: 'Trang chủ', href: '/' },
     { label: 'Về HomeStore', href: '/about' },
   ],
 };

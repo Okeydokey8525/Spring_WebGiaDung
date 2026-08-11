@@ -1,10 +1,3 @@
-export type RoomDiscoveryItem = {
-  id: string;
-  title: string;
-  description: string;
-  href: string;
-};
-
 export type EditorialFeature = {
   id: string;
   title: string;
@@ -19,69 +12,42 @@ export type HomeValue = {
   description: string;
 };
 
-export const roomDiscovery: RoomDiscoveryItem[] = [
-  {
-    id: 'living-room',
-    title: 'Phòng khách',
-    description: 'Không gian sinh hoạt chung ấm cúng và thoải mái.',
-    href: '/rooms/living-room',
-  },
-  {
-    id: 'bedroom',
-    title: 'Phòng ngủ',
-    description: 'Nơi nghỉ ngơi riêng tư, yên tĩnh và thư giãn.',
-    href: '/rooms/bedroom',
-  },
-  {
-    id: 'kitchen-dining',
-    title: 'Bếp & bàn ăn',
-    description: 'Trái tim của ngôi nhà với những bữa ăn sum vầy.',
-    href: '/rooms/kitchen-dining',
-  },
-  {
-    id: 'bathroom',
-    title: 'Phòng tắm',
-    description: 'Góc thanh lọc cơ thể và bắt đầu ngày mới.',
-    href: '/rooms/bathroom',
-  },
-];
-
 export const editorialFeatures: EditorialFeature[] = [
   {
-    id: 'simplicity',
-    title: 'Sống gọn hơn',
+    id: 'everyday-storage',
+    title: 'Sắp xếp dễ hơn mỗi ngày',
     description:
-      'Sắp xếp lại không gian sống để tạo ra sự thoáng đãng cho tâm trí. Chọn lọc những vật dụng thực sự mang lại niềm vui và giá trị sử dụng hằng ngày.',
-    href: '/collections/minimalism',
-    linkLabel: 'Khám phá bộ sưu tập',
+      'Từ hộp chia ngăn đến kệ lưu trữ, bắt đầu với những vật dụng giúp mỗi món đồ có chỗ riêng và dễ tìm khi cần.',
+    href: '/products?category=storage',
+    linkLabel: 'Xem đồ dùng lưu trữ',
   },
   {
-    id: 'dining-moments',
-    title: 'Bàn ăn cho những khoảnh khắc thường ngày',
+    id: 'daily-kitchen',
+    title: 'Tiện ích cho căn bếp hằng ngày',
     description:
-      'Biến mỗi bữa ăn thành một trải nghiệm đáng nhớ với những thiết kế gốm sứ tinh tế, kết nối mọi thành viên trong gia đình.',
-    href: '/collections/dining',
-    linkLabel: 'Xem chi tiết',
+      'Khám phá các dụng cụ phục vụ việc chuẩn bị, bảo quản và sử dụng thực phẩm theo một luồng tìm kiếm rõ ràng.',
+    href: '/products?category=kitchen',
+    linkLabel: 'Khám phá đồ dùng nhà bếp',
   },
 ];
 
 export const homeValues: HomeValue[] = [
   {
-    id: 'easy-living',
-    title: 'Dễ sống cùng',
+    id: 'practical-everyday',
+    title: 'Thiết thực mỗi ngày',
     description:
-      'Thiết kế chú trọng vào sự thoải mái và tiện dụng trong nhịp sống hằng ngày.',
+      'Tập trung vào những vật dụng phục vụ các nhu cầu sinh hoạt quen thuộc.',
   },
   {
-    id: 'intentional',
-    title: 'Tối giản có chủ đích',
+    id: 'easy-discovery',
+    title: 'Dễ tìm, dễ chọn',
     description:
-      'Chỉ giữ lại những gì thực sự cần thiết, mang đến vẻ đẹp của sự tinh tế.',
+      'Danh mục rõ ràng giúp bạn đi thẳng đến nhóm đồ dùng đang cần.',
   },
   {
-    id: 'daily-rhythm',
-    title: 'Phù hợp với nhịp sống',
+    id: 'varied-needs',
+    title: 'Phù hợp nhiều nhu cầu',
     description:
-      'Các sản phẩm hòa quyện tự nhiên vào không gian và thói quen sinh hoạt của bạn.',
+      'Một cửa hàng cho nhiều việc thường ngày, từ nhà bếp đến học tập và di chuyển.',
   },
 ];

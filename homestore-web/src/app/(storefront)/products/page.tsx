@@ -1,5 +1,5 @@
 import React from 'react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Container, Section } from '@/components/ui';
 import { getFilteredCatalogItems } from '@/features/catalog/data/catalog-source';
 import { CatalogHeader } from '@/features/catalog/components/catalog-header';
@@ -8,14 +8,14 @@ import { CatalogToolbar } from '@/features/catalog/components/catalog-toolbar';
 import { CatalogGrid } from '@/features/catalog/components/catalog-grid';
 import { CatalogEmptyState } from '@/features/catalog/components/catalog-empty-state';
 import {
-  CatalogRoomKey,
-  CatalogCategoryKey,
-  CatalogSortKey,
+  parseCatalogCategory,
+  parseCatalogSort,
 } from '@/features/catalog/model/catalog-query';
 
 export const metadata: Metadata = {
   title: 'Sản phẩm | HomeStore',
-  description: 'Khám phá các nhóm sản phẩm cho không gian sống tại HomeStore.',
+  description:
+    'Khám phá đồ dùng gia đình và tiện ích đời sống theo danh mục tại HomeStore.',
 };
 
 interface ProductsPageProps {
@@ -25,50 +25,28 @@ interface ProductsPageProps {
 export default async function ProductsPage({
   searchParams,
 }: ProductsPageProps) {
-  // In Next.js 15+, searchParams is a promise that must be awaited
   const resolvedSearchParams = await searchParams;
-
-  // Extract query parameters with safe fallbacks
-  const room = (
-    typeof resolvedSearchParams.room === 'string'
-      ? resolvedSearchParams.room
-      : 'all'
-  ) as CatalogRoomKey;
-  const category = (
-    typeof resolvedSearchParams.category === 'string'
-      ? resolvedSearchParams.category
-      : 'all'
-  ) as CatalogCategoryKey;
-  const sort = (
-    typeof resolvedSearchParams.sort === 'string'
-      ? resolvedSearchParams.sort
-      : 'featured'
-  ) as CatalogSortKey;
-
-  // Fetch fixtures (acting as source boundary)
-  const items = getFilteredCatalogItems(room, category, sort);
+  const category = parseCatalogCategory(resolvedSearchParams.category);
+  const sort = parseCatalogSort(resolvedSearchParams.sort);
+  const items = getFilteredCatalogItems(category, sort);
 
   return (
-    <div className="flex flex-col w-full min-h-screen">
+    <div className="flex min-h-screen w-full flex-col">
       <CatalogHeader />
 
-      <Section className="py-8 lg:py-12 bg-[var(--color-canvas)] flex-grow">
+      <Section className="flex-grow bg-[var(--color-canvas)] py-8 lg:py-12">
         <Container>
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            {/* Left sidebar for filters (desktop) / Top for mobile */}
-            <div className="w-full lg:w-1/4 lg:flex-shrink-0">
-              <CatalogFilters
-                currentRoom={room}
-                currentCategory={category}
-                currentSort={sort}
-              />
+          <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
+            <div
+              id="catalog-categories"
+              className="w-full scroll-mt-36 lg:w-1/4 lg:flex-shrink-0"
+            >
+              <CatalogFilters currentCategory={category} currentSort={sort} />
             </div>
 
-            {/* Right content area */}
-            <div className="w-full lg:w-3/4 flex flex-col">
+            <div className="flex w-full flex-col lg:w-3/4">
               <CatalogToolbar
                 resultCount={items.length}
-                currentRoom={room}
                 currentCategory={category}
                 currentSort={sort}
               />

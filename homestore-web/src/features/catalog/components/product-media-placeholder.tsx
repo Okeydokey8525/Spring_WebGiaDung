@@ -1,5 +1,5 @@
 import React from 'react';
-import { MediaVariantKey } from '../model/catalog-item';
+import type { MediaVariantKey } from '../model/catalog-item';
 import { cn } from '@/lib/utils/cn';
 
 interface ProductMediaPlaceholderProps {
@@ -11,7 +11,6 @@ export function ProductMediaPlaceholder({
   variant = 'neutral',
   className,
 }: ProductMediaPlaceholderProps) {
-  // Render abstract geometric compositions based on variant
   const renderGeometry = () => {
     switch (variant) {
       case 'storage':
@@ -55,15 +54,6 @@ export function ProductMediaPlaceholder({
             strokeWidth="1.5"
           />
         );
-      case 'furniture':
-        return (
-          <path
-            d="M 20 20 L 80 20 L 80 80 L 20 80 Z M 20 50 L 80 50"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          />
-        );
       case 'neutral':
       default:
         return (
@@ -80,13 +70,13 @@ export function ProductMediaPlaceholder({
   return (
     <div
       className={cn(
-        'w-full h-full bg-[var(--color-surface-subtle)] flex items-center justify-center text-[var(--color-border)]',
+        'flex h-full w-full items-center justify-center bg-[var(--color-surface-subtle)] text-[var(--color-border)]',
         className
       )}
       aria-hidden="true"
     >
       <svg
-        className="w-1/3 h-1/3 opacity-50"
+        className="h-1/3 w-1/3 opacity-50"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid meet"
         aria-hidden="true"

@@ -6,43 +6,39 @@ export function HomeHero() {
   return (
     <Section className="pt-8 pb-16 lg:pt-16 lg:pb-24">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content Column */}
-          <div className="flex flex-col space-y-6 order-2 lg:order-1">
-            <span className="text-sm font-medium tracking-wider uppercase text-[var(--color-muted)]">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+          <div className="order-2 flex flex-col space-y-6 lg:order-1">
+            <span className="text-sm font-medium uppercase tracking-wider text-[var(--color-muted)]">
               HomeStore
             </span>
-            <h1 className="font-editorial text-4xl lg:text-5xl xl:text-6xl tracking-tight text-[var(--color-brand)] leading-[1.1]">
-              Không gian sống, <br className="hidden lg:block" />
-              được chọn lựa có chủ đích.
+            <h1 className="font-editorial text-4xl leading-[1.1] tracking-tight text-[var(--color-brand)] lg:text-5xl xl:text-6xl">
+              Đồ dùng thiết thực <br className="hidden lg:block" />
+              cho cuộc sống mỗi ngày.
             </h1>
-            <p className="text-lg text-[var(--color-primary)] max-w-md leading-relaxed">
-              Khám phá bộ sưu tập đồ dùng gia đình tinh tế, mang lại sự gọn
-              gàng, tiện nghi và cảm giác bình yên cho nhịp sống thường ngày của
-              bạn.
+            <p className="max-w-md text-lg leading-relaxed text-[var(--color-primary)]">
+              Khám phá đồ gia dụng và tiện ích đời sống theo danh mục rõ ràng,
+              từ việc bếp núc, sắp xếp đến vệ sinh và chăm sóc cá nhân.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center bg-[var(--color-brand)] text-white font-medium px-6 py-3 rounded-[var(--radius-control)] hover:bg-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] transition-colors"
+                className="inline-flex items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-6 py-3 font-medium text-white transition-colors hover:bg-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
               >
                 Khám phá sản phẩm
               </Link>
               <Link
-                href="/rooms"
-                className="inline-flex items-center justify-center border border-[var(--color-border)] text-[var(--color-primary)] font-medium px-6 py-3 rounded-[var(--radius-control)] hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] transition-colors"
+                href="/products#catalog-categories"
+                className="inline-flex items-center justify-center rounded-[var(--radius-control)] border border-[var(--color-border)] px-6 py-3 font-medium text-[var(--color-primary)] transition-colors hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
               >
-                Khám phá theo không gian
+                Xem theo danh mục
               </Link>
             </div>
           </div>
 
-          {/* Media Column - Abstract Geometry placeholder */}
-          <div className="order-1 lg:order-2 aspect-square lg:aspect-[4/5] relative bg-[var(--color-surface-subtle)] rounded-[var(--radius-container)] overflow-hidden shadow-sm flex items-center justify-center">
-            {/* Abstract decorative SVG */}
+          <div className="relative order-1 flex aspect-square items-center justify-center overflow-hidden rounded-[var(--radius-container)] bg-[var(--color-surface-subtle)] shadow-sm lg:order-2 lg:aspect-[4/5]">
             <svg
-              className="w-full h-full text-[var(--color-border)] opacity-30"
+              className="h-full w-full text-[var(--color-border)] opacity-30"
               viewBox="0 0 100 100"
               preserveAspectRatio="xMidYMid slice"
               aria-hidden="true"

@@ -1,46 +1,48 @@
 import React from 'react';
 import Link from 'next/link';
 import { HomeHero } from '@/components/home/home-hero';
-import { RoomDiscovery } from '@/components/home/room-discovery';
+import { CategoryDiscovery } from '@/components/home/category-discovery';
+import { EverydayUseDiscovery } from '@/components/home/everyday-use-discovery';
 import { EditorialFeature } from '@/components/home/editorial-feature';
 import { HomeValues } from '@/components/home/home-values';
-import { InspirationCta } from '@/components/home/inspiration-cta';
 import { Container, Section } from '@/components/ui';
 
 export const metadata = {
-  title: 'HomeStore | Đồ dùng cho không gian sống hiện đại',
+  title: 'HomeStore | Đồ dùng và tiện ích cho cuộc sống hằng ngày',
   description:
-    'Khám phá bộ sưu tập đồ dùng gia đình tinh tế, mang lại sự gọn gàng, tiện nghi và cảm giác bình yên cho nhịp sống thường ngày của bạn.',
+    'Khám phá đồ gia dụng, đồ dùng và tiện ích đời sống theo danh mục rõ ràng tại HomeStore.',
 };
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <HomeHero />
-      <RoomDiscovery />
+      <CategoryDiscovery />
+      <EverydayUseDiscovery />
       <EditorialFeature />
       <HomeValues />
-      <InspirationCta />
 
-      {/* Closing CTA */}
-      <Section className="py-24 bg-[var(--color-surface)] text-center">
+      <Section className="bg-[var(--color-surface)] py-24 text-center">
         <Container>
-          <div className="max-w-2xl mx-auto flex flex-col items-center space-y-6">
+          <div className="mx-auto flex max-w-2xl flex-col items-center space-y-6">
             <h2 className="font-editorial text-3xl tracking-tight text-[var(--color-brand)]">
-              Bạn đang tìm điều gì cho không gian của mình?
+              Bắt đầu từ nhu cầu của bạn
             </h2>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <p className="text-[var(--color-muted)]">
+              Xem toàn bộ sản phẩm hoặc chọn một danh mục để thu hẹp lựa chọn.
+            </p>
+            <div className="flex flex-col gap-4 pt-4 sm:flex-row">
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center bg-[var(--color-brand)] text-white font-medium px-6 py-3 rounded-[var(--radius-control)] hover:bg-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] transition-colors"
+                className="inline-flex items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-6 py-3 font-medium text-white transition-colors hover:bg-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
               >
                 Xem tất cả sản phẩm
               </Link>
               <Link
-                href="/rooms"
-                className="inline-flex items-center justify-center border border-[var(--color-border)] text-[var(--color-primary)] font-medium px-6 py-3 rounded-[var(--radius-control)] hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] transition-colors"
+                href="/products?category=storage"
+                className="inline-flex items-center justify-center rounded-[var(--radius-control)] border border-[var(--color-border)] px-6 py-3 font-medium text-[var(--color-primary)] transition-colors hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
               >
-                Khám phá không gian
+                Xem đồ dùng lưu trữ
               </Link>
             </div>
           </div>

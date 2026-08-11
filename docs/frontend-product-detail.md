@@ -1,47 +1,39 @@
-# HomeStore Frontend Product Detail (HOME-FE-5)
+# HomeStore Frontend Product Detail (HOME-FE-5, repositioned by HOME-FE-6)
 
 ## 1. Product Detail Purpose
-The Product Detail Page (`/products/[slug]`) provides an expanded, contextual view of a single product. It strictly adheres to the Premium Editorial Commerce aesthetic established in earlier milestones. 
 
-Currently, this milestone focuses exclusively on structural presentation and domain separation. It deliberately avoids fabricating commercial data (such as pricing, availability, and cart interactions) until the backend API provides a stable contract.
+The Product Detail Page at `/products/[slug]` presents a single fixture product
+within HomeStore's broad category-first commerce direction. HOME-FE-6 removes
+room context while preserving the FE5 dynamic route, static parameter
+generation, metadata, loading, error, and 404 behavior.
 
-## 2. Route Architecture
-- **Path**: `/products/[slug]`
-- **Layout**: Inherits the `(storefront)` global layout.
-- **States**: 
-  - `page.tsx`: Server Component that dynamically resolves the slug parameter. Uses `notFound()` if the slug is invalid.
-  - `loading.tsx`: Segment-level skeleton indicating structural loading.
-  - `error.tsx`: Client-side error boundary providing a resilient failure state.
+## 2. Data and Route Boundary
 
-## 3. Data Boundary (Catalog Source)
-The PDP retrieves product information via `getCatalogItemBySlug(slug)`, an extension of the existing catalog fixture abstraction (`src/features/catalog/data/catalog-source.ts`).
-- The PDP **MUST NOT** import `catalog-fixtures.ts` directly.
-- The `CatalogItem` interface is reused because it currently contains all truthful presentation data needed. 
-- When the backend is ready, this abstraction layer will be replaced with an API adapter.
+The PDP resolves products through `getCatalogItemBySlug(slug)` and never imports
+fixtures directly. Unknown slugs call `notFound()`. Dynamic metadata uses only
+the fixture name and description.
 
-## 4. Metadata
-Dynamic `generateMetadata` uses the actual product name (`[Tên sản phẩm] | HomeStore`) and description. It does not output fake structured data (JSON-LD) or pricing metadata, preventing search engines from indexing incomplete commercial information.
+## 3. Product Information
 
-## 5. Breadcrumb & Navigation
-An accessible `<nav aria-label="Breadcrumb">` provides clear context: `Trang chủ > Sản phẩm > [Tên sản phẩm]`. A call-to-action at the bottom of the page encourages returning to the catalog (`/products`) to continue discovery.
+The page presents:
 
-## 6. Media Strategy
-The page reuses the `ProductMediaPlaceholder` from FE4. It is constrained within a responsive layout rather than duplicating the SVG drawing logic. No external/remote images are permitted at this stage.
+- Product name
+- Presentation category
+- Short description
+- Abstract local media placeholder
 
-## 7. Deferred Commercial Features
-The following features are **intentionally deferred** and have no UI placeholders to avoid user confusion:
-- Price / Discount / Currency
-- Stock / Inventory / SKU
-- Ratings / Reviews
-- Add to Cart / Buy Now / Wishlist
-- Size / Color / Variant selection
-- Related Products / Recommendations
+Room metadata and room-oriented discovery copy are removed. The information
+panel uses semantic `<dl>`, `<dt>`, and `<dd>` elements and reflows without blank
+room fields.
 
-## 8. Accessibility
-- Includes exactly one `<h1>` (the product name).
-- The breadcrumb clearly designates `aria-current="page"`.
-- Media elements use `aria-hidden="true"` as they are purely decorative abstractions of the product.
-- Proper semantic HTML (`<dt>`, `<dd>`) is used for product information.
+## 4. Deferred Commercial Features
 
-## 9. Responsive Layout
-The UI transitions from a stacked single-column on mobile to a balanced two-column (Media + Summary) grid on desktop, avoiding any horizontal overflow or forced heights.
+The PDP contains no price, discount, inventory, SKU, rating, review, cart
+action, wishlist, variant, fabricated material, dimensions, brand, origin, or
+warranty data. Related-product and recommendation engines remain deferred.
+
+## 5. Responsive and Accessible Behavior
+
+The layout stacks on mobile and becomes a balanced media/summary grid on
+desktop. The product name is the single `<h1>`, breadcrumb semantics remain
+intact, and decorative media stays hidden from assistive technology.

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Section, Container } from '@/components/ui';
@@ -11,6 +11,8 @@ import { ProductMediaPlaceholder } from '@/features/catalog/components/product-m
 import { ProductBreadcrumb } from '@/features/product-detail/components/product-breadcrumb';
 import { ProductDetailSummary } from '@/features/product-detail/components/product-detail-summary';
 import { ProductDetailInfo } from '@/features/product-detail/components/product-detail-info';
+
+export const dynamicParams = false;
 
 interface ProductDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -52,21 +54,19 @@ export default async function ProductDetailPage({
   }
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-[var(--color-canvas)]">
-      <Section className="py-8 lg:py-12 pb-16">
+    <div className="flex min-h-screen w-full flex-col bg-[var(--color-canvas)]">
+      <Section className="py-8 pb-16 lg:py-12">
         <Container>
           <ProductBreadcrumb productName={item.name} />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-            {/* Left: Large Media */}
-            <div className="w-full aspect-square rounded-[var(--radius-container)] overflow-hidden border border-[var(--color-border)] shadow-sm">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
+            <div className="aspect-square w-full overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] shadow-sm">
               <ProductMediaPlaceholder
                 variant={item.mediaVariant}
-                className="w-full h-full"
+                className="h-full w-full"
               />
             </div>
 
-            {/* Right: Summary */}
             <div className="w-full">
               <ProductDetailSummary item={item} />
             </div>
@@ -74,22 +74,20 @@ export default async function ProductDetailPage({
         </Container>
       </Section>
 
-      {/* Product Information Panel */}
       <ProductDetailInfo item={item} />
 
-      {/* Discovery / Return CTA */}
       <Section className="py-24 text-center">
         <Container>
-          <div className="max-w-2xl mx-auto flex flex-col items-center space-y-6">
-            <h2 className="text-2xl font-editorial text-[var(--color-brand)]">
+          <div className="mx-auto flex max-w-2xl flex-col items-center space-y-6">
+            <h2 className="font-editorial text-2xl text-[var(--color-brand)]">
               Tiếp tục khám phá
             </h2>
-            <p className="text-[var(--color-muted)] mb-4">
-              Tìm kiếm thêm các giải pháp cho không gian sống của bạn.
+            <p className="mb-4 text-[var(--color-muted)]">
+              Tìm thêm đồ dùng và tiện ích cho những nhu cầu thường ngày.
             </p>
             <Link
               href="/products"
-              className="inline-flex items-center justify-center bg-[var(--color-brand)] text-white font-medium px-8 py-3 rounded-[var(--radius-control)] hover:bg-[var(--color-brand-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-brand)] transition-colors"
+              className="inline-flex items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-8 py-3 font-medium text-white transition-colors hover:bg-[var(--color-brand-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2"
             >
               Xem tất cả sản phẩm
             </Link>

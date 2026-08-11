@@ -1,54 +1,56 @@
-# HomeStore Frontend Catalog (HOME-FE-4)
+# HomeStore Frontend Catalog (HOME-FE-4, repositioned by HOME-FE-6)
 
 ## 1. Catalog Purpose
-The Catalog (`/products`) is the primary discovery interface for HomeStore products. It continues the Premium Editorial Commerce aesthetic established by the homepage, emphasizing clarity, scannability, and restrained visual presentation over dense dashboard-style interfaces.
 
-## 2. Route Architecture
-- **Path**: `/products`
-- **Layout**: Inherits the `(storefront)` global layout, automatically receiving the header and footer.
-- **States**: 
-  - `page.tsx`: Server component handling search parameters and rendering the grid.
-  - `loading.tsx`: Segment-level skeleton matching the grid structure.
-  - `error.tsx`: Client boundary handling unexpected rendering failures safely.
+The catalog at `/products` is the primary category-first discovery interface
+for HomeStore's broad household and daily-utility presentation. HOME-FE-6
+supersedes FE4's room-first filter while retaining the feature architecture,
+server-driven URL state, and restrained visual design.
 
-## 3. Catalog Feature Architecture
-Located at `src/features/catalog`, this architecture isolates the catalog domain:
-- **`model/`**: Contains the `CatalogItem` view model and query state definitions.
-- **`data/`**: Houses development fixtures and the source abstraction layer.
-- **`components/`**: UI components specific to the catalog presentation (e.g., `ProductCard`, filters, grid).
+## 2. Route and Feature Architecture
 
-## 4. CatalogItem View Model
-The `CatalogItem` is strictly a presentation-layer interface. 
-- It contains only metadata required for FE4 UI (e.g., `slug`, `name`, `categoryKey`, `roomKey`, `shortDescription`).
-- **CRITICAL**: It intentionally omits `price`, `stock`, `rating`, `SKU`, and other commerce backend fields, as those contracts are not yet finalized in the backend.
+- `page.tsx` is a Server Component that awaits `searchParams`.
+- `loading.tsx` and `error.tsx` preserve segment-level loading and error states.
+- `model/`, `data/`, and `components/` continue to isolate catalog concerns.
+- UI components access fixture data only through `catalog-source.ts`.
 
-## 5. Fixture Source Boundary
-The UI components never import fixtures directly. Instead, they call `getFilteredCatalogItems` from `catalog-source.ts`. This thin abstraction layer ensures that when the real backend API is ready (future milestone), only the source adapter needs to be rewritten, leaving the UI components untouched. 
+## 3. CatalogItem View Model
 
-**Development fixtures MUST be replaced before production catalog launch.**
+`CatalogItem` includes only the truthful presentation fields needed now:
+`id`, `slug`, `name`, `categoryKey`, `categoryLabel`, `shortDescription`,
+`mediaVariant`, and `featuredOrder`. Room fields were removed.
 
-## 6. Query Parameters (Server-Driven State)
-The catalog uses Next.js `searchParams` for all filtering and sorting. There is no global client state (e.g., Redux, Zustand, or React Context) used for the catalog view. This ensures URLs are fully shareable and server-renderable.
-- `room`: Filters by room context (e.g., `living-room`, `bedroom`).
-- `category`: Filters by product category (e.g., `storage`, `textile`).
-- `sort`: Controls ordering (`featured`, `name-asc`, `name-desc`).
+Price, stock, rating, SKU, variants, seller data, and other backend commerce
+fields remain intentionally absent.
 
-Invalid query parameters safely fall back to default values (`all` or `featured`) without throwing 500 errors.
+## 4. Presentation Taxonomy and Fixtures
 
-## 7. ProductCard
-The `ProductCard` component focuses on clear presentation:
-- Uses a local, abstract SVG placeholder (`ProductMediaPlaceholder`) instead of random external images.
-- Displays metadata (category/room) and a concise description.
-- Clicks route to `/products/{slug}`. Product Detail Pages (PDP) are implemented in HOME-FE-5.
+Category keys come from the presentation-only taxonomy in
+`src/lib/config/store-categories.ts`. The ten development fixtures cover a
+useful subset of the taxonomy for filtering. They are not production inventory
+and must be replaced by a backend-driven source before production launch.
 
-## 8. Missing Commerce Features Explained
-- **Price/Sale/Discount**: Absent because the pricing contract and promotional rules engine are not finalized.
-- **Stock/Inventory**: Absent because the inventory tracking contract is deferred.
-- **Ratings/Reviews**: Absent because user-generated content features are not yet implemented.
-- **Real Photography**: The media backend is deferred. We use semantic SVG placeholders to represent items abstractly.
+## 5. Query Parameters
 
-## 9. Accessibility
-- Includes exactly one `<h1>` for the catalog route.
-- Filters use native `<Link>` tags with `aria-current` to denote active state (avoiding color-only indication).
-- Sorting uses a native `<form method="GET">` with a real `<label>` and `<select>`, maximizing accessibility and allowing functionality without JavaScript.
-- Decorative SVGs use `aria-hidden="true"`.
+The supported query state is:
+
+- `category`: A V1 presentation category key, such as `kitchen` or `storage`.
+- `sort`: `featured`, `name-asc`, or `name-desc`.
+
+Invalid values fall back safely. The obsolete `room` parameter is not parsed or
+preserved, so old URLs such as `/products?room=living-room` render the default
+catalog without reintroducing a room filter.
+
+## 6. Filters, Toolbar, and ProductCard
+
+The filter UI exposes the ten broad presentation categories with accessible
+selected state. Sorting preserves only the selected category. Product cards
+show a category label, name, and concise description without room, price,
+stock, or rating metadata.
+
+## 7. Accessibility and Boundaries
+
+Filters are native links with `aria-current`; sorting remains a native GET form
+with a labeled select. Abstract media placeholders remain local and decorative.
+There is no API request, global catalog state, marketplace concept, or new
+runtime dependency.

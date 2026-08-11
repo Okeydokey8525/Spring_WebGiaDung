@@ -1,19 +1,28 @@
-export type CatalogRoomKey =
-  'all' | 'living-room' | 'bedroom' | 'kitchen-dining' | 'bathroom';
+import { storeCategories } from '@/lib/config/store-categories';
+import type { StoreCategoryKey } from '@/lib/config/store-categories';
 
-export type CatalogCategoryKey =
-  | 'all'
-  | 'storage'
-  | 'kitchen'
-  | 'textile'
-  | 'bathroom'
-  | 'furniture'
-  | 'decor';
+export type CatalogCategoryKey = 'all' | StoreCategoryKey;
 
 export type CatalogSortKey = 'featured' | 'name-asc' | 'name-desc';
 
 export interface CatalogQueryParams {
-  room?: CatalogRoomKey;
   category?: CatalogCategoryKey;
   sort?: CatalogSortKey;
+}
+
+export function parseCatalogCategory(
+  value: string | string[] | undefined
+): CatalogCategoryKey {
+  if (typeof value !== 'string' || value === 'all') return 'all';
+
+  return (
+    storeCategories.find((category) => category.key === value)?.key ?? 'all'
+  );
+}
+
+export function parseCatalogSort(
+  value: string | string[] | undefined
+): CatalogSortKey {
+  if (value === 'name-asc' || value === 'name-desc') return value;
+  return 'featured';
 }
