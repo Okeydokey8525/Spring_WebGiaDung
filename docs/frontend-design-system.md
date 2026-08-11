@@ -80,6 +80,7 @@ A live preview of the design system tokens and primitives is available locally a
 This route is excluded from search indexing.
 
 ## 13. Intentionally Deferred (Future Milestones)
-- HOME-FE-2: Global Layout (Header, Footer, Navigation)
 - HOME-FE-3: Homepage (Hero, Promos)
 - Catalog, Product Detail, Cart, and Checkout UI.
+
+*Note: HOME-FE-2 Global Layout is now complete. See [Global Layout](frontend-global-layout.md).*

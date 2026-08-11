@@ -2,7 +2,7 @@ import { Container, Surface, Section } from '@/components/ui';
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen bg-[var(--color-canvas)]">
+    <div className="flex flex-col min-h-screen bg-[var(--color-canvas)]">
       <Section className="flex-1 flex items-center justify-center">
         <Container>
           <Surface className="max-w-2xl mx-auto p-12 text-center space-y-6">
@@ -18,6 +18,6 @@ export default function Home() {
           </Surface>
         </Container>
       </Section>
-    </main>
+    </div>
   );
 }
