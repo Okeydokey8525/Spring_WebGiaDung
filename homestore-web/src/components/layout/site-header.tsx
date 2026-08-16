@@ -3,77 +3,128 @@ import Link from 'next/link';
 import { Container } from '@/components/ui';
 import { MobileNavigation } from './mobile-navigation';
 import { primaryNavigation } from '@/lib/config/site-navigation';
-import { SearchIcon, UserIcon, ShoppingBagIcon } from './site-icons';
+import { SearchIcon, ShoppingBagIcon, UserIcon } from './site-icons';
+
+const navigationLinkClass =
+  'inline-flex min-h-11 items-center whitespace-nowrap rounded-[var(--radius-control)] px-2.5 text-sm font-medium text-[var(--color-primary)] transition-colors hover:bg-[var(--color-brand-soft)] hover:text-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]';
+
+const utilityIconClass =
+  'inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-control)] text-[var(--color-primary)] transition-colors hover:bg-[var(--color-brand-soft)] hover:text-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]';
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 w-full bg-[var(--color-surface)] border-b border-[var(--color-border)]">
+    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
       <Container>
-        {/* ROW 1: Mobile Top / Desktop Top */}
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-4">
-            <MobileNavigation />
-            <Link
-              href="/"
-              className="font-editorial text-2xl font-bold text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] px-1"
-              aria-label="HomeStore trang chủ"
-            >
-              HomeStore
-            </Link>
-          </div>
+        <div className="flex min-h-16 items-center gap-2">
+          <MobileNavigation />
 
-          {/* Desktop Utilities */}
-          <div className="hidden lg:flex items-center gap-6">
-            <Link
-              href="/search"
-              className="flex items-center gap-2 text-sm font-medium text-[var(--color-primary)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] px-2 py-1"
-            >
-              <SearchIcon aria-hidden="true" width={20} height={20} />
-              Tìm kiếm sản phẩm
-            </Link>
-            <Link
-              href="/account"
-              className="flex items-center gap-2 text-sm font-medium text-[var(--color-primary)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] px-2 py-1"
-            >
-              <UserIcon aria-hidden="true" width={20} height={20} />
-              Tài khoản
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--radius-control)] px-1 font-editorial text-2xl font-bold tracking-tight text-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+            aria-label="HomeStore trang chủ"
+          >
+            HomeStore
+          </Link>
 
-          {/* Mobile Cart / Desktop Cart */}
-          <div className="flex items-center">
-            <Link
-              href="/cart"
-              className="flex items-center gap-2 p-2 -mr-2 text-[var(--color-primary)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)]"
-            >
-              <ShoppingBagIcon aria-hidden="true" />
-              <span className="hidden lg:inline text-sm font-medium">
-                Giỏ hàng
-              </span>
-            </Link>
-          </div>
-        </div>
-      </Container>
-
-      {/* ROW 2: Desktop Primary Nav */}
-      <div className="hidden lg:block border-t border-[var(--color-border)]">
-        <Container>
           <nav
             aria-label="Điều hướng chính"
-            className="flex items-center h-12 gap-8"
+            className="ml-3 hidden min-w-0 flex-1 items-center gap-0.5 lg:flex"
           >
             {primaryNavigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-[var(--color-primary)] hover:text-[var(--color-brand)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded-[var(--radius-control)] px-2 py-1"
+                className={navigationLinkClass}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-        </Container>
-      </div>
+
+          <div className="ml-auto hidden shrink-0 items-center gap-1 lg:flex">
+            <form
+              method="GET"
+              action="/products"
+              role="search"
+              className="relative w-[clamp(12rem,22vw,20rem)]"
+            >
+              <label htmlFor="site-search" className="sr-only">
+                Tìm kiếm sản phẩm
+              </label>
+              <SearchIcon
+                aria-hidden="true"
+                width={18}
+                height={18}
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-muted)]"
+              />
+              <input
+                id="site-search"
+                type="search"
+                name="q"
+                placeholder="Tìm kiếm sản phẩm..."
+                autoComplete="off"
+                className="h-11 w-full rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-surface)] py-2 pl-10 pr-11 text-sm text-[var(--color-primary)] outline-none placeholder:text-[var(--color-muted)] focus:border-[var(--color-brand)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+              />
+              <button
+                type="submit"
+                aria-label="Tìm kiếm"
+                className="absolute right-1 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-[var(--radius-control)] text-[var(--color-brand-hover)] transition-colors hover:bg-[var(--color-brand-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+              >
+                <SearchIcon aria-hidden="true" width={17} height={17} />
+              </button>
+            </form>
+
+            <Link
+              href="/login"
+              aria-label="Đăng nhập"
+              title="Đăng nhập"
+              className={utilityIconClass}
+            >
+              <UserIcon aria-hidden="true" width={20} height={20} />
+            </Link>
+
+            <Link
+              href="/cart"
+              aria-label="Giỏ hàng"
+              title="Giỏ hàng"
+              className={utilityIconClass}
+            >
+              <ShoppingBagIcon aria-hidden="true" width={20} height={20} />
+            </Link>
+          </div>
+
+          <div className="ml-auto flex shrink-0 items-center gap-0.5 lg:hidden">
+            <Link
+              href="/products#catalog-search"
+              aria-label="Tìm kiếm sản phẩm"
+              className={utilityIconClass}
+            >
+              <SearchIcon aria-hidden="true" width={20} height={20} />
+            </Link>
+
+            <Link
+              href="/login"
+              aria-label="Đăng nhập"
+              className={utilityIconClass}
+            >
+              <UserIcon aria-hidden="true" width={20} height={20} />
+            </Link>
+
+            <Link
+              href="/cart"
+              aria-label="Giỏ hàng"
+              className={utilityIconClass}
+            >
+              <ShoppingBagIcon aria-hidden="true" width={20} height={20} />
+            </Link>
+          </div>
+        </div>
+      </Container>
+
+      <div
+        className="h-1 w-full bg-gradient-to-r from-[var(--color-brand-soft)] via-[var(--color-accent-warm)] to-[var(--color-brand-soft)]"
+        aria-hidden="true"
+      />
     </header>
   );
 }

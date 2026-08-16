@@ -4,7 +4,10 @@ import { homeValues } from '@/lib/config/home-content';
 
 export function HomeValues() {
   return (
-    <Section className="bg-[var(--color-surface)] py-16 lg:py-24">
+    <Section
+      id="about-homestore"
+      className="scroll-mt-24 bg-[var(--color-surface)] py-16 lg:py-24"
+    >
       <Container>
         <div className="flex flex-col space-y-12">
           <div className="mx-auto max-w-2xl space-y-4 text-center">
@@ -12,8 +15,7 @@ export function HomeValues() {
               Điều HomeStore ưu tiên
             </h2>
             <p className="text-base text-[var(--color-muted)]">
-              Một cách khám phá đồ dùng hằng ngày rõ ràng, vừa đủ và dễ tiếp
-              cận.
+              Một cách khám phá đồ dùng hằng ngày rõ ràng, vừa đủ và dễ tiếp cận.
             </p>
           </div>
 
@@ -21,7 +23,7 @@ export function HomeValues() {
             {homeValues.map((value) => (
               <Surface
                 key={value.id}
-                className="flex flex-col items-center space-y-4 rounded-[var(--radius-container)] border border-[var(--color-border)] bg-[var(--color-canvas)] p-8 text-center"
+                className="flex flex-col items-center space-y-4 rounded-[var(--radius-surface-large)] border border-[var(--color-border)] bg-[var(--color-canvas)] p-8 text-center"
               >
                 <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]">
                   <svg
@@ -31,20 +33,11 @@ export function HomeValues() {
                     stroke="currentColor"
                     aria-hidden="true"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M5 13l4 4L19 7"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-[var(--color-primary)]">
-                  {value.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-[var(--color-muted)]">
-                  {value.description}
-                </p>
+                <h3 className="text-lg font-medium text-[var(--color-primary)]">{value.title}</h3>
+                <p className="text-sm leading-relaxed text-[var(--color-muted)]">{value.description}</p>
               </Surface>
             ))}
           </div>

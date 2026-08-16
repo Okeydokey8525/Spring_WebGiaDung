@@ -4,31 +4,24 @@ export type NavItem = {
 };
 
 export const primaryNavigation: NavItem[] = [
-  { label: 'Danh mục', href: '/products#catalog-categories' },
+  { label: 'Trang chủ', href: '/' },
   { label: 'Sản phẩm', href: '/products' },
-  { label: 'Nổi bật', href: '/products?sort=featured' },
-  { label: 'Về HomeStore', href: '/about' },
+  { label: 'Danh mục', href: '/products#catalog-categories' },
+  { label: 'Về HomeStore', href: '/#about-homestore' },
 ];
 
 export const utilityNavigation: NavItem[] = [
-  { label: 'Tìm kiếm', href: '/search' },
-  { label: 'Tài khoản', href: '/account' },
-  { label: 'Giỏ hàng', href: '/cart' },
+  { label: 'Tìm kiếm', href: '/products#catalog-search' },
 ];
 
 export const footerNavigation = {
   shop: [
+    { label: 'Tất cả sản phẩm', href: '/products' },
     { label: 'Danh mục', href: '/products#catalog-categories' },
-    { label: 'Sản phẩm', href: '/products' },
-    { label: 'Nổi bật', href: '/products?sort=featured' },
-  ],
-  support: [
-    { label: 'Tìm kiếm', href: '/search' },
-    { label: 'Tài khoản', href: '/account' },
-    { label: 'Giỏ hàng', href: '/cart' },
+    { label: 'Tìm kiếm sản phẩm', href: '/products#catalog-search' },
   ],
   brand: [
     { label: 'Trang chủ', href: '/' },
-    { label: 'Về HomeStore', href: '/about' },
+    { label: 'Về HomeStore', href: '/#about-homestore' },
   ],
 };
