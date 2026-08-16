@@ -84,15 +84,4 @@ export const storeCategories: readonly StoreCategory[] = [
   },
 ];
 
-const homepageCategoryKeys: readonly StoreCategoryKey[] = [
-  'kitchen',
-  'household',
-  'storage',
-  'cleaning',
-  'bathroom',
-  'travel-utility',
-];
-
-export const homepageCategories = storeCategories.filter((category) =>
-  homepageCategoryKeys.includes(category.key)
-);
+export const homepageCategories = storeCategories;

@@ -5,16 +5,18 @@ import { ProductMediaPlaceholder } from './product-media-placeholder';
 
 interface ProductCardProps {
   item: CatalogItem;
+  headingLevel?: 2 | 3;
 }
 
-export function ProductCard({ item }: ProductCardProps) {
+export function ProductCard({ item, headingLevel = 2 }: ProductCardProps) {
   const productUrl = `/products/${item.slug}`;
+  const Heading = headingLevel === 3 ? 'h3' : 'h2';
 
   return (
-    <div className="group flex h-full flex-col space-y-4 rounded-[var(--radius-container)] outline-none focus-within:ring-2 focus-within:ring-[var(--color-focus-ring)]">
+    <div className="group flex h-full flex-col space-y-4 rounded-[var(--radius-surface-large)] outline-none focus-within:ring-2 focus-within:ring-[var(--color-focus-ring)]">
       <Link
         href={productUrl}
-        className="relative block aspect-[4/5] overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] focus:outline-none"
+        className="relative block aspect-[4/5] overflow-hidden rounded-[var(--radius-surface-large)] border border-[var(--color-border)] focus:outline-none"
         tabIndex={-1}
         aria-hidden="true"
       >
@@ -27,16 +29,16 @@ export function ProductCard({ item }: ProductCardProps) {
           {item.categoryLabel}
         </div>
 
-        <h2 className="text-base font-medium text-[var(--color-primary)]">
+        <Heading className="text-base font-semibold text-[var(--color-primary)]">
           <Link
             href={productUrl}
             className="decoration-[var(--color-border)] underline-offset-4 hover:underline focus:outline-none"
           >
             {item.name}
           </Link>
-        </h2>
+        </Heading>
 
-        <p className="line-clamp-2 text-sm text-[var(--color-muted)]">
+        <p className="line-clamp-2 text-sm leading-6 text-[var(--color-muted)]">
           {item.shortDescription}
         </p>
       </div>

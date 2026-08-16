@@ -33,21 +33,21 @@ export const editorialFeatures: EditorialFeature[] = [
 
 export const homeValues: HomeValue[] = [
   {
-    id: 'practical-everyday',
-    title: 'Thiết thực mỗi ngày',
+    id: 'clear-categories',
+    title: 'Danh mục rõ ràng',
     description:
-      'Tập trung vào những vật dụng phục vụ các nhu cầu sinh hoạt quen thuộc.',
+      '10 nhóm sản phẩm giúp việc khám phá và thu hẹp lựa chọn trở nên dễ hơn.',
   },
   {
-    id: 'easy-discovery',
-    title: 'Dễ tìm, dễ chọn',
+    id: 'convenient-search',
+    title: 'Tìm kiếm thuận tiện',
     description:
-      'Danh mục rõ ràng giúp bạn đi thẳng đến nhóm đồ dùng đang cần.',
+      'Tìm sản phẩm theo từ khóa và tiếp tục kết hợp với danh mục phù hợp.',
   },
   {
-    id: 'varied-needs',
-    title: 'Phù hợp nhiều nhu cầu',
+    id: 'daily-needs',
+    title: 'Nhiều nhu cầu hằng ngày',
     description:
-      'Một cửa hàng cho nhiều việc thường ngày, từ nhà bếp đến học tập và di chuyển.',
+      'Từ nhà bếp, lưu trữ đến vệ sinh, học tập và các tiện ích cá nhân.',
   },
 ];

@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { HomeHero } from '@/components/home/home-hero';
+import { BambooLeafMotif } from '@/components/brand/bamboo-leaf-motif';
 import { CategoryDiscovery } from '@/components/home/category-discovery';
-import { EverydayUseDiscovery } from '@/components/home/everyday-use-discovery';
-import { EditorialFeature } from '@/components/home/editorial-feature';
+import { FeaturedProducts } from '@/components/home/featured-products';
+import { HomeHero } from '@/components/home/home-hero';
 import { HomeValues } from '@/components/home/home-values';
+import { PracticalProductDiscovery } from '@/components/home/practical-product-discovery';
 import { Container, Section } from '@/components/ui';
 
 export const metadata = {
@@ -18,31 +19,43 @@ export default function Home() {
     <div className="flex w-full flex-col">
       <HomeHero />
       <CategoryDiscovery />
-      <EverydayUseDiscovery />
-      <EditorialFeature />
+      <FeaturedProducts />
       <HomeValues />
+      <PracticalProductDiscovery />
 
-      <Section className="bg-[var(--color-surface)] py-24 text-center">
+      <Section className="relative overflow-hidden bg-[var(--color-surface)] py-16 text-center lg:py-20">
+        <div
+          className="pointer-events-none absolute -bottom-40 left-1/2 w-96 -translate-x-1/2 opacity-[0.06]"
+          aria-hidden="true"
+        >
+          <BambooLeafMotif />
+        </div>
+
         <Container>
-          <div className="mx-auto flex max-w-2xl flex-col items-center space-y-6">
-            <h2 className="font-editorial text-3xl tracking-tight text-[var(--color-brand)]">
-              Bắt đầu từ nhu cầu của bạn
+          <div className="relative mx-auto flex max-w-2xl flex-col items-center">
+            <div
+              className="mb-5 h-px w-16 bg-[var(--color-accent-warm)]"
+              aria-hidden="true"
+            />
+            <h2 className="font-editorial text-3xl font-semibold tracking-tight text-[var(--color-brand-hover)] sm:text-4xl">
+              Tìm thứ bạn cần cho mỗi ngày
             </h2>
-            <p className="text-[var(--color-muted)]">
-              Xem toàn bộ sản phẩm hoặc chọn một danh mục để thu hẹp lựa chọn.
+            <p className="mt-4 max-w-xl leading-7 text-[var(--color-muted)]">
+              Bắt đầu từ toàn bộ sản phẩm hoặc chọn một danh mục phù hợp với nhu
+              cầu của bạn.
             </p>
-            <div className="flex flex-col gap-4 pt-4 sm:flex-row">
+            <div className="mt-7 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-6 py-3 font-medium text-white transition-colors hover:bg-[var(--color-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+                className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-6 py-3 font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
               >
                 Xem tất cả sản phẩm
               </Link>
               <Link
-                href="/products?category=storage"
-                className="inline-flex items-center justify-center rounded-[var(--radius-control)] border border-[var(--color-border)] px-6 py-3 font-medium text-[var(--color-primary)] transition-colors hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+                href="/products#catalog-categories"
+                className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-6 py-3 font-semibold text-[var(--color-primary)] transition-colors hover:bg-[var(--color-brand-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
               >
-                Xem đồ dùng lưu trữ
+                Khám phá danh mục
               </Link>
             </div>
           </div>

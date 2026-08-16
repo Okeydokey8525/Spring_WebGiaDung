@@ -1,5 +1,4 @@
 @theme {
-  /* Colors */
   --color-canvas: #f8faf7;
   --color-surface: #ffffff;
   --color-surface-subtle: #f2f5f2;
@@ -16,10 +15,8 @@
   --color-danger: #b33434;
   --color-focus-ring: #1f5138;
 
-  /* Typography Hierarchy */
-  --font-editorial: Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-editorial: var(--font-lora), ui-serif, serif;
 
-  /* Semantic spacing / Layout */
   --spacing-gutter-mobile: 16px;
   --spacing-gutter-tablet: 24px;
   --spacing-gutter-desktop: 32px;
@@ -28,17 +25,14 @@
   --spacing-section-md: 64px;
   --spacing-section-lg: 96px;
 
-  /* Radius */
   --radius-control: 10px;
   --radius-surface: 16px;
   --radius-surface-large: 20px;
   --radius-pill: 9999px;
 
-  /* Shadow */
   --shadow-subtle: 0 4px 20px rgba(23, 32, 25, 0.05);
   --shadow-elevated: 0 12px 32px rgba(23, 32, 25, 0.1);
 
-  /* Motion */
   --default-transition-duration: 250ms;
   --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: 150ms;
