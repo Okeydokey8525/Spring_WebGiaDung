@@ -1,14 +1,43 @@
 import React from 'react';
 import Link from 'next/link';
 import { Section, Container } from '@/components/ui';
+import type {
+  CatalogCategoryKey,
+  CatalogSortKey,
+} from '../model/catalog-query';
 
-export function CatalogEmptyState() {
+interface CatalogEmptyStateProps {
+  currentSearch?: string;
+  currentCategory?: CatalogCategoryKey;
+  currentSort?: CatalogSortKey;
+}
+
+function buildClearSearchUrl(
+  category: CatalogCategoryKey,
+  sort: CatalogSortKey
+) {
+  const params = new URLSearchParams();
+
+  if (category !== 'all') params.set('category', category);
+  if (sort !== 'featured') params.set('sort', sort);
+
+  const query = params.toString();
+  return query ? `/products?${query}` : '/products';
+}
+
+export function CatalogEmptyState({
+  currentSearch = '',
+  currentCategory = 'all',
+  currentSort = 'featured',
+}: CatalogEmptyStateProps) {
+  const clearSearchUrl = buildClearSearchUrl(currentCategory, currentSort);
+
   return (
-    <Section className="py-24 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-container)] text-center my-8">
+    <Section className="my-8 rounded-[var(--radius-container)] border border-[var(--color-border)] bg-[var(--color-surface)] py-16 text-center sm:py-20 lg:py-24">
       <Container>
-        <div className="max-w-md mx-auto flex flex-col items-center space-y-4">
+        <div className="mx-auto flex max-w-md flex-col items-center space-y-4">
           <svg
-            className="w-12 h-12 text-[var(--color-muted)] opacity-50 mb-4"
+            className="mb-4 h-12 w-12 text-[var(--color-muted)] opacity-50"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -18,22 +47,37 @@ export function CatalogEmptyState() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={1}
-              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+              d="M11 4a7 7 0 105.29 11.59L21 20.3M8.5 9.5h5m-5 3h3"
             />
           </svg>
+
           <h2 className="text-xl font-medium text-[var(--color-primary)]">
-            Không có sản phẩm phù hợp với bộ lọc hiện tại.
+            {currentSearch
+              ? `Không tìm thấy sản phẩm cho “${currentSearch}”.`
+              : 'Không có sản phẩm phù hợp với bộ lọc hiện tại.'}
           </h2>
-          <p className="text-[var(--color-muted)] text-sm">
-            Vui lòng thử thay đổi các tùy chọn lọc hoặc xem tất cả sản phẩm của
-            chúng tôi.
+
+          <p className="text-sm text-[var(--color-muted)]">
+            {currentSearch
+              ? 'Hãy thử từ khóa khác, xóa từ khóa tìm kiếm hoặc xem lại toàn bộ sản phẩm.'
+              : 'Hãy thử thay đổi danh mục hoặc xem lại toàn bộ sản phẩm.'}
           </p>
-          <div className="pt-4">
+
+          <div className="flex flex-col gap-2 pt-4 sm:flex-row">
+            {currentSearch && (
+              <Link
+                href={clearSearchUrl}
+                className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-2 text-sm font-medium text-[var(--color-primary)] transition-colors hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+              >
+                Xóa tìm kiếm
+              </Link>
+            )}
+
             <Link
               href="/products"
-              className="inline-flex items-center justify-center bg-[var(--color-surface)] text-[var(--color-primary)] border border-[var(--color-border)] font-medium px-6 py-2 rounded-[var(--radius-control)] hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] transition-colors"
+              className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
             >
-              Xóa bộ lọc
+              Xem tất cả sản phẩm
             </Link>
           </div>
         </div>

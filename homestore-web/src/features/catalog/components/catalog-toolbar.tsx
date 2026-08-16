@@ -8,17 +8,21 @@ interface CatalogToolbarProps {
   resultCount: number;
   currentCategory?: CatalogCategoryKey;
   currentSort?: CatalogSortKey;
+  currentSearch?: string;
 }
 
 export function CatalogToolbar({
   resultCount,
   currentCategory = 'all',
   currentSort = 'featured',
+  currentSearch = '',
 }: CatalogToolbarProps) {
   return (
     <div className="mb-6 flex flex-col items-start justify-between gap-4 border-b border-[var(--color-border)] py-4 sm:flex-row sm:items-center">
       <div className="text-sm font-medium text-[var(--color-muted)]">
-        {resultCount} sản phẩm
+        {currentSearch
+          ? `${resultCount} kết quả cho “${currentSearch}”`
+          : `${resultCount} sản phẩm`}
       </div>
 
       <form
@@ -26,6 +30,9 @@ export function CatalogToolbar({
         action="/products"
         className="flex w-full items-center space-x-3 sm:w-auto"
       >
+        {currentSearch && (
+          <input type="hidden" name="q" value={currentSearch} />
+        )}
         {currentCategory !== 'all' && (
           <input type="hidden" name="category" value={currentCategory} />
         )}

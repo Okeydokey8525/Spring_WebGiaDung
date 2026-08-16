@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils/cn';
 interface CatalogFiltersProps {
   currentCategory?: CatalogCategoryKey;
   currentSort?: CatalogSortKey;
+  currentSearch?: string;
 }
 
 const categoryOptions: readonly {
@@ -23,9 +24,12 @@ const categoryOptions: readonly {
 export function CatalogFilters({
   currentCategory = 'all',
   currentSort = 'featured',
+  currentSearch = '',
 }: CatalogFiltersProps) {
   const createUrl = (category: CatalogCategoryKey, sort: CatalogSortKey) => {
     const params = new URLSearchParams();
+
+    if (currentSearch) params.set('q', currentSearch);
     if (category !== 'all') params.set('category', category);
     if (sort !== 'featured') params.set('sort', sort);
 
@@ -41,6 +45,7 @@ export function CatalogFilters({
       <nav aria-label="Bộ lọc danh mục" className="flex flex-wrap gap-2">
         {categoryOptions.map((category) => {
           const isActive = category.key === currentCategory;
+
           return (
             <Link
               key={category.key}

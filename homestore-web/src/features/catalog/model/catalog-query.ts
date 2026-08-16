@@ -6,6 +6,7 @@ export type CatalogCategoryKey = 'all' | StoreCategoryKey;
 export type CatalogSortKey = 'featured' | 'name-asc' | 'name-desc';
 
 export interface CatalogQueryParams {
+  q?: string;
   category?: CatalogCategoryKey;
   sort?: CatalogSortKey;
 }
@@ -25,4 +26,21 @@ export function parseCatalogSort(
 ): CatalogSortKey {
   if (value === 'name-asc' || value === 'name-desc') return value;
   return 'featured';
+}
+
+export function parseCatalogSearch(
+  value: string | string[] | undefined
+): string {
+  if (typeof value !== 'string') return '';
+  return value.trim().replace(/\s+/g, ' ');
+}
+
+export function normalizeCatalogSearchText(value: string): string {
+  return value
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLocaleLowerCase('vi-VN')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd');
 }
