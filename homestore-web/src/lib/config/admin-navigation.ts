@@ -95,4 +95,14 @@ export const adminNavigation: readonly AdminNavSection[] = [
       },
     ],
   },
+  {
+    label: 'Hệ thống',
+    items: [
+      {
+        href: '/admin/settings',
+        label: 'Cài đặt',
+        description: 'Cấu hình cửa hàng và hệ thống',
+      },
+    ],
+  },
 ] as const;
