@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Container, Section } from '@/components/ui';
+import { AuthField } from '@/components/auth/auth-field';
+import { AuthPreviewForm } from '@/components/auth/auth-preview-form';
+import { AuthShell } from '@/components/auth/auth-shell';
 
 export const metadata: Metadata = {
   title: 'Đăng nhập | HomeStore',
@@ -9,41 +11,76 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <Section className="flex min-h-[70vh] items-center bg-[var(--color-canvas)] py-16 lg:py-24">
-      <Container>
-        <div className="mx-auto max-w-xl overflow-hidden rounded-[var(--radius-surface-large)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-subtle)]">
-          <div
-            className="h-2 bg-gradient-to-r from-[var(--color-brand)] via-[var(--color-accent-warm)] to-[var(--color-brand-soft)]"
-            aria-hidden="true"
-          />
-          <div className="space-y-6 p-7 sm:p-10">
-            <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-brand)]">
-                Tài khoản HomeStore
-              </p>
-              <h1 className="font-editorial text-3xl text-[var(--color-brand-hover)] sm:text-4xl">
-                Đăng nhập
-              </h1>
-              <p className="leading-7 text-[var(--color-muted)]">
-                Giao diện đăng nhập đầy đủ sẽ được nối với hệ thống tài khoản ở
-                milestone Auth. Route này được mở trước để điều hướng cửa hàng
-                không dẫn tới trang 404.
-              </p>
-            </div>
+    <AuthShell
+      eyebrow="Tài khoản HomeStore"
+      title="Chào mừng bạn quay lại"
+      description="Đăng nhập để quản lý thông tin cá nhân, địa chỉ, đơn hàng và danh sách sản phẩm yêu thích."
+      footer={
+        <p>
+          Chưa có tài khoản?
+          <Link
+            href="/register"
+            className="ml-1.5 font-semibold text-[var(--color-brand-hover)] underline-offset-4 hover:underline"
+          >
+            Đăng ký
+          </Link>
+        </p>
+      }
+    >
+      <div className="mb-7">
+        <h2 className="text-2xl font-bold text-[var(--color-primary)]">Đăng nhập</h2>
+        <p className="mt-2 text-sm leading-6 text-[var(--color-muted)]">
+          Tính năng đăng nhập đang được hoàn thiện để kết nối với tài khoản HomeStore.
+        </p>
+      </div>
 
-            <div className="rounded-[var(--radius-surface)] bg-[var(--color-brand-soft)] p-4 text-sm leading-6 text-[var(--color-primary)]">
-              Chưa có form giả hoặc trạng thái đăng nhập giả trong giai đoạn này.
-            </div>
+      <AuthPreviewForm className="space-y-5" describedBy="login-status">
+        <AuthField
+          id="login-email"
+          name="email"
+          type="email"
+          label="Email"
+          placeholder="ban@example.com"
+          autoComplete="email"
+        />
+        <AuthField
+          id="login-password"
+          name="password"
+          type="password"
+          label="Mật khẩu"
+          placeholder="Nhập mật khẩu"
+          autoComplete="current-password"
+        />
 
-            <Link
-              href="/products"
-              className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-5 py-2.5 font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
-            >
-              Tiếp tục mua sắm
-            </Link>
-          </div>
+        <div className="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+          <label className="inline-flex min-h-10 items-center gap-2 text-[var(--color-primary)]">
+            <input
+              type="checkbox"
+              name="remember"
+              className="h-4 w-4 accent-[var(--color-brand)]"
+            />
+            Ghi nhớ đăng nhập
+          </label>
+          <Link
+            href="/forgot-password"
+            className="font-semibold text-[var(--color-brand-hover)] underline-offset-4 hover:underline"
+          >
+            Quên mật khẩu?
+          </Link>
         </div>
-      </Container>
-    </Section>
+
+        <button type="submit" className="inline-flex min-h-12 w-full cursor-not-allowed items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-5 font-semibold text-white opacity-60" disabled aria-disabled="true" >
+          Đăng nhập
+        </button>
+
+        <p
+          id="login-status"
+          className="rounded-[var(--radius-control)] bg-[var(--color-brand-soft)] p-3 text-xs leading-5 text-[var(--color-primary)]"
+        >
+          Nút đăng nhập tạm khóa để không tạo trạng thái xác thực giả trước khi
+          backend Auth được triển khai.
+        </p>
+      </AuthPreviewForm>
+    </AuthShell>
   );
 }
