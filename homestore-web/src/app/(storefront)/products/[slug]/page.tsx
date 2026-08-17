@@ -2,15 +2,16 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Section, Container } from '@/components/ui';
+import { Container, Section } from '@/components/ui';
 import {
   getCatalogItemBySlug,
   getCatalogItems,
 } from '@/features/catalog/data/catalog-source';
-import { ProductMediaPlaceholder } from '@/features/catalog/components/product-media-placeholder';
 import { ProductBreadcrumb } from '@/features/product-detail/components/product-breadcrumb';
 import { ProductDetailSummary } from '@/features/product-detail/components/product-detail-summary';
 import { ProductDetailInfo } from '@/features/product-detail/components/product-detail-info';
+import { ProductMediaPanel } from '@/features/product-detail/components/product-media-panel';
+import { RelatedProducts } from '@/features/product-detail/components/related-products';
 
 export const dynamicParams = false;
 
@@ -37,8 +38,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const items = getCatalogItems();
-  return items.map((item) => ({
+  return getCatalogItems().map((item) => ({
     slug: item.slug,
   }));
 }
@@ -55,39 +55,32 @@ export default async function ProductDetailPage({
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-[var(--color-canvas)]">
-      <Section className="py-8 pb-16 lg:py-12">
+      <Section className="pb-14 pt-7 lg:pb-16 lg:pt-10">
         <Container>
           <ProductBreadcrumb productName={item.name} />
 
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
-            <div className="aspect-square w-full overflow-hidden rounded-[var(--radius-container)] border border-[var(--color-border)] shadow-sm">
-              <ProductMediaPlaceholder
-                variant={item.mediaVariant}
-                className="h-full w-full"
-              />
-            </div>
-
-            <div className="w-full">
-              <ProductDetailSummary item={item} />
-            </div>
+          <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(22rem,5fr)] lg:gap-12 xl:gap-16">
+            <ProductMediaPanel item={item} />
+            <ProductDetailSummary item={item} />
           </div>
         </Container>
       </Section>
 
       <ProductDetailInfo item={item} />
+      <RelatedProducts item={item} />
 
-      <Section className="py-24 text-center">
+      <Section className="bg-[var(--color-surface)] py-14 text-center lg:py-16">
         <Container>
-          <div className="mx-auto flex max-w-2xl flex-col items-center space-y-6">
-            <h2 className="font-editorial text-2xl text-[var(--color-brand)]">
-              Tiếp tục khám phá
+          <div className="mx-auto flex max-w-2xl flex-col items-center">
+            <h2 className="font-editorial text-3xl font-semibold text-[var(--color-brand-hover)]">
+              Tiếp tục khám phá HomeStore
             </h2>
-            <p className="mb-4 text-[var(--color-muted)]">
-              Tìm thêm đồ dùng và tiện ích cho những nhu cầu thường ngày.
+            <p className="mt-4 text-[var(--color-muted)]">
+              Xem thêm đồ dùng và tiện ích cho những nhu cầu thường ngày.
             </p>
             <Link
               href="/products"
-              className="inline-flex items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-8 py-3 font-medium text-white transition-colors hover:bg-[var(--color-brand-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2"
+              className="mt-7 inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-7 font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
             >
               Xem tất cả sản phẩm
             </Link>

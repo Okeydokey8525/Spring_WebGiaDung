@@ -1,5 +1,5 @@
 import React from 'react';
-import { CatalogItem } from '../model/catalog-item';
+import type { CatalogItem } from '../model/catalog-item';
 import { ProductCard } from './product-card';
 
 interface CatalogGridProps {
@@ -8,7 +8,7 @@ interface CatalogGridProps {
 
 export function CatalogGrid({ items }: CatalogGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 gap-y-10">
+    <div className="grid grid-cols-1 gap-x-5 gap-y-9 min-[480px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       {items.map((item) => (
         <ProductCard key={item.id} item={item} />
       ))}

@@ -7,39 +7,33 @@ interface ProductBreadcrumbProps {
 
 export function ProductBreadcrumb({ productName }: ProductBreadcrumbProps) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex items-center space-x-2 text-sm text-[var(--color-muted)]">
-        <li>
+    <nav aria-label="Breadcrumb" className="mb-6 overflow-hidden">
+      <ol className="flex min-w-0 items-center gap-2 text-sm text-[var(--color-muted)]">
+        <li className="shrink-0">
           <Link
             href="/"
-            className="hover:text-[var(--color-primary)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded"
+            className="rounded-sm transition-colors hover:text-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
           >
             Trang chủ
           </Link>
         </li>
-        <li
-          aria-hidden="true"
-          className="select-none text-[var(--color-border)]"
-        >
+        <li aria-hidden="true" className="shrink-0 text-[var(--color-border-strong)]">
           /
         </li>
-        <li>
+        <li className="shrink-0">
           <Link
             href="/products"
-            className="hover:text-[var(--color-primary)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] rounded"
+            className="rounded-sm transition-colors hover:text-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
           >
             Sản phẩm
           </Link>
         </li>
-        <li
-          aria-hidden="true"
-          className="select-none text-[var(--color-border)]"
-        >
+        <li aria-hidden="true" className="shrink-0 text-[var(--color-border-strong)]">
           /
         </li>
         <li
           aria-current="page"
-          className="text-[var(--color-primary)] font-medium truncate max-w-[200px] sm:max-w-xs md:max-w-md"
+          className="min-w-0 truncate font-medium text-[var(--color-primary)]"
         >
           {productName}
         </li>

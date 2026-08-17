@@ -13,35 +13,45 @@ export function ProductCard({ item, headingLevel = 2 }: ProductCardProps) {
   const Heading = headingLevel === 3 ? 'h3' : 'h2';
 
   return (
-    <div className="group flex h-full flex-col space-y-4 rounded-[var(--radius-surface-large)] outline-none focus-within:ring-2 focus-within:ring-[var(--color-focus-ring)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-surface-large)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-subtle)] transition-[transform,border-color,box-shadow] hover:-translate-y-0.5 hover:border-[var(--color-brand)] hover:shadow-[var(--shadow-elevated)] motion-reduce:transform-none">
       <Link
         href={productUrl}
-        className="relative block aspect-[4/5] overflow-hidden rounded-[var(--radius-surface-large)] border border-[var(--color-border)] focus:outline-none"
-        tabIndex={-1}
-        aria-hidden="true"
+        className="relative block aspect-[4/5] overflow-hidden bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-focus-ring)]"
+        aria-label={`Xem ${item.name}`}
       >
-        <ProductMediaPlaceholder variant={item.mediaVariant} />
-        <div className="absolute inset-0 bg-[var(--color-brand)] opacity-0 transition-opacity group-hover:opacity-5" />
+        <ProductMediaPlaceholder
+          variant={item.mediaVariant}
+          className="transition-transform duration-300 group-hover:scale-[1.015] motion-reduce:transform-none"
+        />
+
+        <span className="absolute left-3 top-3 rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-white/90 px-3 py-1 text-xs font-semibold text-[var(--color-brand-hover)] backdrop-blur">
+          {item.categoryLabel}
+        </span>
       </Link>
 
-      <div className="flex flex-col space-y-1">
-        <div className="mb-1 text-xs font-medium uppercase tracking-wide text-[var(--color-muted)]">
-          {item.categoryLabel}
-        </div>
-
-        <Heading className="text-base font-semibold text-[var(--color-primary)]">
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
+        <Heading className="text-base font-semibold leading-6 text-[var(--color-primary)]">
           <Link
             href={productUrl}
-            className="decoration-[var(--color-border)] underline-offset-4 hover:underline focus:outline-none"
+            className="rounded-sm underline-offset-4 hover:text-[var(--color-brand-hover)] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
           >
             {item.name}
           </Link>
         </Heading>
 
-        <p className="line-clamp-2 text-sm leading-6 text-[var(--color-muted)]">
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-[var(--color-muted)]">
           {item.shortDescription}
         </p>
+
+        <div className="mt-auto pt-5">
+          <Link
+            href={productUrl}
+            className="inline-flex min-h-10 items-center gap-2 rounded-[var(--radius-control)] text-sm font-semibold text-[var(--color-brand-hover)] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+          >
+            Xem chi tiết <span aria-hidden="true">→</span>
+          </Link>
+        </div>
       </div>
-    </div>
+    </article>
   );
 }

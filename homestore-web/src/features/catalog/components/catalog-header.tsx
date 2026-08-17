@@ -1,20 +1,20 @@
 import React from 'react';
-import { Section, Container } from '@/components/ui';
+import { Container, Section } from '@/components/ui';
 
 export function CatalogHeader() {
   return (
-    <Section className="border-b border-[var(--color-border)] bg-[var(--color-surface)] pt-12 pb-8">
+    <Section className="border-b border-[var(--color-border)] bg-[var(--color-surface)] pb-8 pt-10 lg:pb-10 lg:pt-12">
       <Container>
-        <div className="flex max-w-2xl flex-col space-y-4">
-          <span className="text-xs font-medium uppercase tracking-wider text-[var(--color-muted)]">
+        <div className="max-w-3xl">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-brand)]">
             Cửa hàng
-          </span>
-          <h1 className="font-editorial text-4xl tracking-tight text-[var(--color-brand)] lg:text-5xl">
+          </p>
+          <h1 className="font-editorial text-4xl font-semibold tracking-tight text-[var(--color-brand-hover)] sm:text-5xl">
             Sản phẩm
           </h1>
-          <p className="text-base text-[var(--color-primary)]">
-            Khám phá đồ dùng gia đình và tiện ích đời sống theo danh mục phù hợp
-            với nhu cầu thường ngày.
+          <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--color-muted)]">
+            Tìm đồ dùng gia đình và tiện ích theo từ khóa, danh mục hoặc cách sắp
+            xếp phù hợp với nhu cầu của bạn.
           </p>
         </div>
       </Container>

@@ -38,11 +38,20 @@ export function CatalogFilters({
   };
 
   return (
-    <div className="flex flex-col space-y-3">
-      <h2 className="text-sm font-medium uppercase tracking-wider text-[var(--color-primary)]">
-        Danh mục
-      </h2>
-      <nav aria-label="Bộ lọc danh mục" className="flex flex-wrap gap-2">
+    <div className="rounded-[var(--radius-surface-large)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-subtle)] lg:p-5">
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <h2 className="text-sm font-bold uppercase tracking-[0.14em] text-[var(--color-primary)]">
+          Danh mục
+        </h2>
+        <span className="text-xs text-[var(--color-muted)]">
+          {categoryOptions.length - 1} nhóm
+        </span>
+      </div>
+
+      <nav
+        aria-label="Bộ lọc danh mục"
+        className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible"
+      >
         {categoryOptions.map((category) => {
           const isActive = category.key === currentCategory;
 
@@ -52,13 +61,16 @@ export function CatalogFilters({
               href={createUrl(category.key, currentSort)}
               aria-current={isActive ? 'page' : undefined}
               className={cn(
-                'inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]',
+                'inline-flex min-h-11 shrink-0 items-center rounded-[var(--radius-control)] border px-4 text-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] lg:w-full lg:justify-between',
                 isActive
-                  ? 'border-[var(--color-brand)] bg-[var(--color-brand)] font-medium text-white'
-                  : 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-primary)] hover:bg-[var(--color-surface-subtle)]'
+                  ? 'border-[var(--color-brand)] bg-[var(--color-brand)] font-semibold text-white'
+                  : 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-primary)] hover:border-[var(--color-brand)] hover:bg-[var(--color-brand-soft)]'
               )}
             >
-              {category.label}
+              <span>{category.label}</span>
+              <span className="hidden lg:inline" aria-hidden="true">
+                →
+              </span>
             </Link>
           );
         })}

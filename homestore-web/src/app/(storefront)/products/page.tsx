@@ -39,19 +39,20 @@ export default async function ProductsPage({
 
       <Section className="flex-grow bg-[var(--color-canvas)] py-8 lg:py-12">
         <Container>
-          <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
-            <div
+          <div className="grid gap-8 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10 xl:gap-12">
+            <aside
               id="catalog-categories"
-              className="w-full scroll-mt-36 lg:w-1/4 lg:flex-shrink-0"
+              className="scroll-mt-28 lg:sticky lg:top-24 lg:self-start"
+              aria-label="Danh mục sản phẩm"
             >
               <CatalogFilters
                 currentCategory={category}
                 currentSort={sort}
                 currentSearch={search}
               />
-            </div>
+            </aside>
 
-            <div className="flex w-full min-w-0 flex-col lg:w-3/4">
+            <div className="min-w-0">
               <CatalogSearch
                 currentSearch={search}
                 currentCategory={category}

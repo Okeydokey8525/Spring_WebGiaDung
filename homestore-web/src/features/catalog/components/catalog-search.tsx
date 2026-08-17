@@ -39,10 +39,11 @@ export function CatalogSearch({
 
   return (
     <form
+      id="catalog-search"
       method="GET"
       action="/products"
       role="search"
-      className="mb-5 rounded-[var(--radius-container)] border border-[var(--color-border)] bg-[var(--color-surface)] p-3 sm:p-4"
+      className="mb-5 rounded-[var(--radius-surface-large)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-[var(--shadow-subtle)]"
     >
       {currentCategory !== 'all' && (
         <input type="hidden" name="category" value={currentCategory} />
@@ -52,26 +53,26 @@ export function CatalogSearch({
       )}
 
       <label
-        htmlFor="catalog-search"
-        className="mb-2 block text-sm font-medium text-[var(--color-primary)]"
+        htmlFor="catalog-search-input"
+        className="mb-2 block text-sm font-semibold text-[var(--color-primary)]"
       >
         Tìm kiếm sản phẩm
       </label>
 
       <div className="flex flex-col gap-2 sm:flex-row">
         <input
-          id="catalog-search"
+          id="catalog-search-input"
           type="search"
           name="q"
           defaultValue={currentSearch}
           placeholder="Tìm theo tên, danh mục hoặc mô tả..."
           autoComplete="off"
-          className="min-w-0 flex-1 rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 text-sm text-[var(--color-primary)] outline-none placeholder:text-[var(--color-muted)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+          className="min-h-11 min-w-0 flex-1 rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm text-[var(--color-primary)] outline-none placeholder:text-[var(--color-muted)] focus:border-[var(--color-brand)] focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
         />
 
         <button
           type="submit"
-          className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+          className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] bg-[var(--color-brand)] px-5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-brand-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
         >
           Tìm kiếm
         </button>
@@ -80,9 +81,9 @@ export function CatalogSearch({
           <Link
             href={clearSearchUrl}
             aria-label="Xóa từ khóa tìm kiếm"
-            className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-medium text-[var(--color-primary)] transition-colors hover:bg-[var(--color-surface-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
+            className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm font-semibold text-[var(--color-primary)] transition-colors hover:bg-[var(--color-brand-soft)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)]"
           >
-            Xóa tìm kiếm
+            Xóa
           </Link>
         )}
       </div>
