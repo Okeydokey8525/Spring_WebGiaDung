@@ -75,9 +75,9 @@ export function SiteHeader() {
             </form>
 
             <Link
-              href="/login"
-              aria-label="Đăng nhập"
-              title="Đăng nhập"
+              href="/account"
+              aria-label="Tài khoản"
+              title="Tài khoản"
               className={utilityIconClass}
             >
               <UserIcon aria-hidden="true" width={20} height={20} />
@@ -103,8 +103,8 @@ export function SiteHeader() {
             </Link>
 
             <Link
-              href="/login"
-              aria-label="Đăng nhập"
+              href="/account"
+              aria-label="Tài khoản"
               className={utilityIconClass}
             >
               <UserIcon aria-hidden="true" width={20} height={20} />

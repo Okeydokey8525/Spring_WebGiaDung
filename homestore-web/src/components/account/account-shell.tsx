@@ -2,12 +2,15 @@ import React from 'react';
 import { BambooLeafMotif } from '@/components/brand/bamboo-leaf-motif';
 import { Container, Section } from '@/components/ui';
 import { AccountNavigation } from '@/components/account/account-navigation';
+import { LogoutButton } from '@/components/account/logout-button';
+import type { AuthUser } from '@/lib/auth/types';
 
 interface AccountShellProps {
   children: React.ReactNode;
+  user: AuthUser;
 }
 
-export function AccountShell({ children }: AccountShellProps) {
+export function AccountShell({ children, user }: AccountShellProps) {
   return (
     <Section className="relative overflow-hidden bg-[var(--color-canvas)] py-10 lg:py-14">
       <div
@@ -26,18 +29,30 @@ export function AccountShell({ children }: AccountShellProps) {
             Không gian tài khoản HomeStore
           </h1>
           <p className="mt-3 leading-7 text-[var(--color-muted)]">
-            Đây là bản giao diện chuẩn bị cho tài khoản khách hàng. Chưa có dữ
-            liệu người dùng hoặc trạng thái đăng nhập giả.
+            Phiên đăng nhập của bạn đang được xác thực bởi backend HomeStore.
+            Các tính năng hồ sơ, địa chỉ, đơn hàng và yêu thích sẽ được kết nối
+            theo từng milestone riêng.
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-8">
           <aside className="lg:sticky lg:top-24 lg:self-start">
+            <div className="mb-3 rounded-[var(--radius-surface)] border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-brand)]">
+                Đã đăng nhập
+              </p>
+              <p className="mt-2 break-words font-semibold text-[var(--color-primary)]">
+                {user.fullName}
+              </p>
+              <p className="mt-1 break-all text-xs leading-5 text-[var(--color-muted)]">
+                {user.email}
+              </p>
+            </div>
+
             <AccountNavigation />
 
-            <div className="mt-3 rounded-[var(--radius-surface)] border border-dashed border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-xs leading-5 text-[var(--color-muted)]">
-              Đăng xuất và phân quyền tài khoản sẽ được kích hoạt khi Auth backend
-              được kết nối.
+            <div className="mt-3">
+              <LogoutButton />
             </div>
           </aside>
 

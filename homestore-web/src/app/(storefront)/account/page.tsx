@@ -40,8 +40,8 @@ export default function AccountOverviewPage() {
           Quản lý tài khoản
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--color-muted)]">
-          Các khu vực dưới đây đã được bố trí sẵn nhưng chưa hiển thị dữ liệu
-          người dùng thật.
+          Xác thực tài khoản đã hoạt động. Các khu vực bên dưới là những chức
+          năng nghiệp vụ sẽ được kết nối dữ liệu thật ở các milestone tiếp theo.
         </p>
       </div>
 
@@ -77,7 +77,9 @@ export default function AccountOverviewPage() {
           Tiếp tục khám phá sản phẩm
         </h3>
         <p className="mt-2 text-sm leading-6 text-[var(--color-muted)]">
-          Storefront hiện vẫn hoạt động độc lập với trạng thái tài khoản.
+          Phiên tài khoản đã được bảo vệ bằng session thật; catalog sản phẩm vẫn
+          tiếp tục hoạt động độc lập cho đến khi các API thương mại được triển
+          khai.
         </p>
         <Link
           href="/products"
