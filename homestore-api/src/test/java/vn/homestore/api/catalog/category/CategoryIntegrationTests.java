@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -17,6 +18,7 @@ import vn.homestore.api.catalog.category.api.UpdateCategoryRequest;
 import vn.homestore.api.catalog.category.infrastructure.CategoryRepository;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -229,7 +231,7 @@ class CategoryIntegrationTests {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithAnonymousUser
     void shouldReturnOnlyActiveHierarchy() throws Exception {
         CategoryResponse activeRoot = createCategory("Active Root", null, null, true);
         CategoryResponse activeChild = createCategory("Active Child", null, activeRoot.id(), true);
@@ -246,7 +248,7 @@ class CategoryIntegrationTests {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithAnonymousUser
     void shouldReturn404ForInactiveSlug() throws Exception {
         createCategory("Inactive Cat", "inactive-cat", null, false);
 
@@ -255,7 +257,7 @@ class CategoryIntegrationTests {
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithAnonymousUser
     void shouldReturn404ForActiveChildOfInactiveParentSlug() throws Exception {
         CategoryResponse inactiveRoot = createCategory("Inactive Root", "inactive-root", null, false);
         createCategory("Active Child", "active-child", inactiveRoot.id(), true);
@@ -283,6 +285,7 @@ class CategoryIntegrationTests {
     private CategoryResponse createCategory(String name, String slug, Long parentId, boolean active) throws Exception {
         CreateCategoryRequest request = new CreateCategoryRequest(name, slug, parentId, null, null, 0, active, null, null);
         MvcResult result = mockMvc.perform(post("/api/v1/admin/categories")
+                        .with(user("fixture-admin").roles("ADMIN"))
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))

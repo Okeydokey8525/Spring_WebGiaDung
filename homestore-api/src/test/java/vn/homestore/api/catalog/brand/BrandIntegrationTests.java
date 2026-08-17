@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -29,7 +30,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 @SpringBootTest
 @Transactional
-@WithMockUser
+@WithMockUser(roles = "ADMIN")
 class BrandIntegrationTests {
 
     @Autowired
@@ -227,6 +228,7 @@ class BrandIntegrationTests {
     }
 
     @Test
+    @WithAnonymousUser
     void shouldEnforcePublicListOrderingAndExcludeInactive() throws Exception {
         Brand b1 = new Brand("Brand Z", "brand-z"); b1.setSortOrder(2);
         Brand b2 = new Brand("Brand A", "brand-a"); b2.setSortOrder(1);
@@ -245,6 +247,7 @@ class BrandIntegrationTests {
     }
 
     @Test
+    @WithAnonymousUser
     void shouldReturn404ForInactivePublicBrand() throws Exception {
         Brand brand = new Brand("Inactive", "inactive");
         brand.setActive(false);
